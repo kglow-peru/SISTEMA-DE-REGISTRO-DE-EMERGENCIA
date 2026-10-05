@@ -1,0 +1,389 @@
+/* ══════════════════════════════════════════════════════════════════
+   ESTILOS.CSS — Guía de Laboratorio Semana 08
+   Layouts responsivos con CSS Grid, Flexbox, pseudoclases y Bootstrap 5
+
+   Este archivo SOLO AGREGA reglas encima del diseño original del
+   sistema (base, componentes, inicio, cctv, disposicion, sensible).
+   No modifica ningún archivo existente.
+
+   Contenido:
+     0. Convivencia con Bootstrap 5 (para que no altere el diseño)
+     1. Botón SOS en el encabezado
+     2. Panel de KPIs con CSS Grid (1 / 2 / 4 columnas)
+     3. DESAFÍO 1 — Pseudoclases y microinteracciones
+     4. DESAFÍO 3 — Barras de progreso Bootstrap en los KPIs
+     5. Ajustes anti-distorsión para celular
+     6. DESAFÍO 2 — Media query para pantallas < 576px
+   ══════════════════════════════════════════════════════════════════ */
+
+
+/* ── 0. Convivencia con Bootstrap 5 ─────────────────────────────────
+   Bootstrap se carga dentro de @layer bootstrap, así que cualquier
+   regla del sistema le gana. Aquí solo se devuelven a su valor
+   original las pocas propiedades que el "reboot" de Bootstrap cambia
+   y que el diseño original nunca definió.                             */
+h1, h2, h3, h4, h5, h6 {
+  font-size: revert;
+  font-weight: revert;
+  line-height: revert;
+}
+button, input, select, textarea, optgroup {
+  font-size: revert;
+  line-height: revert;
+}
+small { font-size: revert; }
+:where(.btn) {
+  line-height: revert;
+  text-align: revert;
+  vertical-align: revert;
+  user-select: revert;
+}
+:where(.modal) {
+  position: revert;
+  top: revert;
+  left: revert;
+  z-index: revert;
+  height: revert;
+  overflow: revert;
+  outline: revert;
+}
+:where(.modal-backdrop) { width: revert; height: revert; }
+:where(.modal-header, .modal-footer) { flex-shrink: revert; border-radius: 0; }
+:where(.toast) {
+  width: revert;
+  background-clip: revert;
+  border: 0;
+  pointer-events: revert;
+}
+.toast:not(.show) { display: flex; }   /* el toast original se anima con .show */
+:where(.sidebar-item .badge) {
+  display: revert;
+  line-height: revert;
+  text-align: revert;
+  white-space: revert;
+  vertical-align: revert;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   1. BOTÓN SOS (acción directa en el encabezado)
+   Abre el mismo modal "Registrar nueva alerta" del sistema.
+   ══════════════════════════════════════════════════════════════════ */
+.btn-sos {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 11.5px; font-weight: 800;
+  letter-spacing: .6px;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, .35);
+  transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+  white-space: nowrap;
+}
+.btn-sos i { font-size: 12px; }
+.btn-sos:hover  { background: #B91C1C; transform: translateY(-1px); box-shadow: 0 6px 14px rgba(220, 38, 38, .45); }
+.btn-sos:active { transform: scale(.95); box-shadow: none; }
+.btn-sos:focus-visible { outline: 2px solid var(--institutional-orange); outline-offset: 2px; }
+
+/* El encabezado deja que la marca se acorte antes de salirse de la pantalla */
+.brand-block { flex-shrink: 1; min-width: 0; }
+.brand-text  { min-width: 0; }
+.header-right { margin-left: auto; }   /* sin menú superior, se mantiene a la derecha */
+.brand-text h1, .brand-text p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Al sumar el botón SOS, los íconos del menú superior no deben aplastarse */
+.top-nav-item svg { flex-shrink: 0; }
+@media (max-width: 1599.98px) {
+  .top-header   { gap: var(--space-4); }
+  .top-nav-item { padding: 8px 8px; font-size: 12px; }
+}
+/* Laptops medianas: el menú superior queda solo con íconos (los textos siguen en el menú lateral) */
+@media (min-width: 900px) and (max-width: 1399.98px) {
+  .top-nav-item span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .top-nav-item { padding: 9px 11px; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   2. PANEL DE KPIs — CSS GRID + MEDIA QUERIES (Mobile First)
+   Celular: 1 columna · Tablet: 2 columnas · Escritorio: 4 columnas
+   ══════════════════════════════════════════════════════════════════ */
+.kpi-grid { grid-template-columns: 1fr; }
+
+@media (min-width: 576px) {
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   3. DESAFÍO 1 — PSEUDOCLASES Y MICROINTERACCIONES
+   ══════════════════════════════════════════════════════════════════ */
+
+/* :hover + transform — la tarjeta KPI se eleva y su ícono gira y crece */
+.kpi-card { transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease, border-color .25s ease; }
+.kpi-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.kpi-icon { transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), box-shadow .25s ease; }
+.kpi-card:hover .kpi-icon {
+  transform: scale(1.15) rotate(-8deg);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, .15);
+}
+/* :active — al hacer clic la tarjeta "se hunde" */
+.kpi-card:active { transform: translateY(-2px) scale(.98); }
+
+/* Íconos de las tarjetas de inicio, información y menú lateral */
+.feature-icon, .info-card .icon { transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.feature-card:hover .feature-icon,
+.info-card:hover .icon { transform: scale(1.12) rotate(-6deg); }
+.sidebar-item svg { transition: transform .2s ease; }
+.sidebar-item:hover svg { transform: translateX(3px) scale(1.1); }
+
+/* :nth-child — filas alternadas en la lista de alertas */
+.incident-row:nth-child(even) { background: #FAFBFD; }
+.incident-row:hover { background: var(--institutional-blue-light); }
+
+/* :focus — campos del formulario de alerta */
+.form-input:focus { border-color: var(--institutional-orange); box-shadow: 0 0 0 3px var(--institutional-orange-lt); }
+
+/* :active — botones */
+.btn:active, .camera-btn:active { transform: scale(.97); }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   4. DESAFÍO 3 — BARRA DE PROGRESO BOOTSTRAP EN CADA KPI
+   ══════════════════════════════════════════════════════════════════ */
+.kpi-progress { margin-top: 10px; }
+.kpi-progress-label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 10.5px; font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.kpi-progress-label strong { color: var(--text-primary); font-family: var(--font-mono); font-size: 11px; }
+.kpi-progress .progress {
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--bg-soft);
+}
+.kpi-progress .progress-bar { border-radius: 999px; }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   5. ANTI-DISTORSIÓN
+   ══════════════════════════════════════════════════════════════════ */
+/* Nada puede generar desplazamiento lateral */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Las etiquetas del video ya no quedan tapadas por "En línea" / "EN VIVO" */
+.camera-preview .cctv-hud-tl,
+.camera-preview .cctv-hud-tr { top: 36px; }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   PULIDO VISUAL — acabado más profesional
+   Mismos colores institucionales (azul + naranja); solo se refinan
+   superficies, sombras, jerarquía tipográfica y estados.
+   ══════════════════════════════════════════════════════════════════ */
+:root {
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 3px rgba(15, 23, 42, .06);
+  --shadow-md: 0 2px 4px rgba(15, 23, 42, .04), 0 8px 20px rgba(15, 23, 42, .08);
+  --shadow-lg: 0 4px 8px rgba(15, 23, 42, .05), 0 18px 40px rgba(15, 23, 42, .12);
+  --bg-app: #F3F5F9;
+  --bg-line: #E4E8EF;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(30, 58, 138, .05), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(234, 88, 12, .04), transparent 60%),
+    var(--bg-app);
+  background-attachment: fixed;
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* ── Encabezado: superficie limpia tipo "glass" ── */
+.top-header {
+  background: rgba(255, 255, 255, .86);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--bg-line);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, .02), 0 4px 18px rgba(15, 23, 42, .05);
+}
+.top-header::after {                       /* línea institucional naranja, más fina y degradada */
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--institutional-blue) 0%, var(--institutional-orange) 55%, var(--institutional-orange-2) 100%);
+}
+.brand-shield {
+  background: linear-gradient(145deg, #2747A6, var(--institutional-blue-dark));
+  box-shadow: 0 6px 14px rgba(30, 58, 138, .28), inset 0 1px 0 rgba(255, 255, 255, .18);
+}
+.brand-text h1 { letter-spacing: -.3px; }
+.top-nav-item { font-weight: 600; }
+.top-nav-item.active {
+  background: linear-gradient(145deg, #2747A6, var(--institutional-blue));
+  box-shadow: 0 4px 12px rgba(30, 58, 138, .28);
+}
+.clock-badge .hora { font-variant-numeric: tabular-nums; }
+
+/* ── Menú lateral ── */
+.sidebar { background: rgba(255, 255, 255, .92); }
+.sidebar-title { color: #A3AEC2; letter-spacing: 1.2px; }
+.sidebar-item { border-radius: 10px; }
+.sidebar-item.active {
+  background: linear-gradient(90deg, var(--institutional-blue-light), rgba(239, 244, 255, .4));
+  box-shadow: inset 0 0 0 1px rgba(30, 58, 138, .08);
+  font-weight: 700;
+}
+.sidebar-user { background: linear-gradient(145deg, var(--bg-soft), #fff); border: 1px solid var(--bg-line); }
+
+/* ── Superficies (tarjetas y paneles) con el mismo lenguaje ── */
+.panel, .kpi-card, .camera-card, .info-card, .feature-card, .auth-card,
+.settings-list, .pagination-bar {
+  border-color: var(--bg-line);
+  box-shadow: var(--shadow-sm);
+}
+.panel-header { background: linear-gradient(180deg, #FFFFFF, #FBFCFE); }
+
+/* ── Encabezado de página ── */
+.page-header h2 { font-size: 24px; letter-spacing: -.6px; color: var(--institutional-blue-dark); }
+.page-header p  { color: #5B6B82; }
+.breadcrumb-link, .breadcrumb-current { border-radius: 999px; padding-inline: 10px; }
+
+/* ── Banner del operador ── */
+.operator-banner {
+  background:
+    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(135deg, #1F3E94 0%, var(--institutional-blue-dark) 70%);
+  box-shadow: 0 14px 34px rgba(15, 36, 86, .28);
+}
+/* El ícono "user-shield" no existe en Lucide: se muestra el equivalente de Font Awesome */
+.operator-avatar i:empty::before {
+  content: "\f505";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-style: normal;
+  font-size: 26px;
+  color: #fff;
+}
+.operator-avatar { background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 6px rgba(255, 255, 255, .05); }
+.operator-stats { gap: 0; }
+.operator-stat { padding: 4px 20px; }
+.operator-stat + .operator-stat { border-left: 1px solid rgba(255, 255, 255, .14); }
+.operator-stat strong { font-variant-numeric: tabular-nums; }
+
+/* ── KPIs: franja de color por indicador (:nth-child) y números tabulares ── */
+.kpi-card { position: relative; overflow: hidden; }
+.kpi-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--kpi-accent, var(--institutional-blue));
+}
+.kpi-grid .kpi-card:nth-child(1) { --kpi-accent: var(--info); }
+.kpi-grid .kpi-card:nth-child(2) { --kpi-accent: var(--institutional-orange); }
+.kpi-grid .kpi-card:nth-child(3) { --kpi-accent: var(--success); }
+.kpi-grid .kpi-card:nth-child(4) { --kpi-accent: var(--danger); }
+.kpi-card:hover { border-color: var(--kpi-accent); }
+.kpi-body .label { letter-spacing: .9px; }
+.kpi-body .value { font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+/* ── Títulos de sección ── */
+.section-title { border-bottom-width: 1px; }
+.section-title h3 { font-size: 15.5px; }
+
+/* ── Cámaras ── */
+.camera-card { transition: transform .25s ease, box-shadow .25s ease; }
+.camera-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.camera-preview .cctv-scene { transition: transform .6s ease; }
+.camera-card:hover .cctv-scene { transform: scale(1.04); }
+.camera-btn.primary { background: linear-gradient(145deg, #2747A6, var(--institutional-blue)); }
+
+/* ── Alertas: borde de color según estado (:has) ── */
+.incident-row:has(.status-pill.review) { box-shadow: inset 3px 0 0 var(--warning); }
+.incident-row:has(.status-pill.done)   { box-shadow: inset 3px 0 0 var(--success); }
+
+/* ── Botones ── */
+.btn { border-radius: 10px; }
+.btn-orange  { background: linear-gradient(145deg, var(--institutional-orange-2), var(--institutional-orange)); }
+.btn-primary { background: linear-gradient(145deg, #2747A6, var(--institutional-blue)); }
+.btn-orange:hover, .btn-primary:hover { filter: brightness(1.06); }
+
+/* ── Inicio ── */
+.home-hero {
+  background:
+    radial-gradient(500px 260px at 15% 0%, rgba(30, 58, 138, .10), transparent 70%),
+    radial-gradient(500px 260px at 85% 100%, rgba(234, 88, 12, .10), transparent 70%),
+    #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+.home-hero h1 { font-size: 32px; letter-spacing: -.8px; color: var(--institutional-blue-dark); }
+.auth-card { padding: 30px 28px; }
+.auth-card:hover, .feature-card:hover { border-color: rgba(30, 58, 138, .35); }
+.form-input { background: #FBFCFE; border-color: #DCE2EB; }
+.form-input:hover:not(:focus) { border-color: #B9C3D3; }
+
+/* ── Paginación de cámaras en una sola línea ── */
+.pagination-bar { flex: 0 0 auto; flex-wrap: nowrap; gap: 8px; padding: 5px 8px 5px 12px; }
+.page-btn { min-width: 28px; height: 28px; }
+
+/* ── Pie ── */
+.page-footer { border-top-color: var(--bg-line); }
+
+/* ── Barra de desplazamiento discreta ── */
+* { scrollbar-width: thin; scrollbar-color: #C9D1DE transparent; }
+
+/* ── Cabecera de página en tablet: acciones debajo del título, sin apretarse ── */
+@media (max-width: 1199.98px) {
+  .page-header > div:first-child { flex: 1 1 100%; }
+  .page-header-actions { flex: 1 1 100%; justify-content: flex-start; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   6. DESAFÍO 2 — SMARTPHONES (ancho menor a 576px)
+   Títulos más pequeños y encabezado reordenado en dos filas:
+     fila 1 → escudo + nombre del sistema
+     fila 2 → indicador "Conectado" + botón SOS
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 575.98px) {
+  :root { --header-h: 100px; }       /* el layout y el menú lateral bajan solos */
+
+  .top-header {
+    flex-wrap: wrap;
+    align-content: center;
+    row-gap: 8px;
+    padding: 8px 12px;
+  }
+  .brand-block  { order: 1; width: 100%; }
+  .header-right { order: 2; width: 100%; justify-content: space-between; gap: 8px; }
+  .btn-sos      { flex: 1; max-width: 55%; justify-content: center; padding-block: 8px; }
+
+  .brand-shield { width: 36px; height: 36px; }
+  .brand-text h1 { font-size: 13px; }
+  .brand-text p  { font-size: 9.5px; }
+
+  /* Títulos principales */
+  .home-hero h1           { font-size: 20px; }
+  .home-hero p            { font-size: 12.5px; }
+  .page-header h2         { font-size: 16px; }
+  .page-header p          { font-size: 12px; }
+  .section-title h3       { font-size: 13.5px; }
+  .operator-info h3       { font-size: 17px; }
+  .panel-header h4        { font-size: 12.5px; }
+  .auth-header h2         { font-size: 16px; }
+
+  .kpi-body .value        { font-size: 22px; }
+  .pagination-bar         { flex-wrap: wrap; max-width: 100%; }
+  .operator-stat          { padding: 4px 12px; }
+  .page-header-actions .btn { flex: 1 1 auto; justify-content: center; }
+  .main-content           { padding: 12px; }
+}

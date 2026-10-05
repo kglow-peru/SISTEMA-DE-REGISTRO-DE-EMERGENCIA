@@ -1,0 +1,91 @@
+/* ══════════════════════════════════════════════════════════════
+   BASE — Variables, reset, tipografía
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Institucional */
+  --institutional-blue:       #1E3A8A;
+  --institutional-blue-dark:  #0F2456;
+  --institutional-blue-light: #EFF4FF;
+  --institutional-orange:     #EA580C;
+  --institutional-orange-2:   #F97316;
+  --institutional-orange-lt:  #FFF4EC;
+
+  /* Estados */
+  --success:  #059669;
+  --success-lt:#D1FAE5;
+  --warning:  #D97706;
+  --warning-lt:#FEF3C7;
+  --danger:   #DC2626;
+  --danger-lt:#FEE2E2;
+  --info:     #0284C7;
+  --info-lt:  #E0F2FE;
+
+  /* Neutros */
+  --bg-app:   #F5F7FB;
+  --bg-card:  #FFFFFF;
+  --bg-line:  #E5E9F0;
+  --bg-soft:  #F1F5F9;
+  --text-primary:   #0F172A;
+  --text-secondary: #475569;
+  --text-muted:     #94A3B8;
+  --text-invert:    #FFFFFF;
+
+  /* Tipografía */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+  /* Radios y espaciado */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Layout */
+  --header-h: 64px;
+  --sidebar-w: 240px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-primary);
+  background: var(--bg-app);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--institutional-orange);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute; top: -100px; left: 12px;
+  padding: 10px 16px;
+  background: var(--institutional-orange);
+  color: #fff; font-weight: 700;
+  border-radius: 6px; z-index: 9999;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 12px; }
