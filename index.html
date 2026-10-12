@@ -10,14 +10,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-<!-- [Semana 08] Bootstrap 5 y Font Awesome.
-     Bootstrap va dentro de una capa (@layer) para que NO pise los estilos propios del sistema. -->
 <style>@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css") layer(bootstrap);
-  /* Seguro: el fondo oscuro del modal solo aparece cuando el modal está abierto */
   .modal-backdrop:not(.open) { opacity: 0; pointer-events: none; }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <link rel="stylesheet" href="css/base.css">
@@ -26,7 +22,6 @@
 <link rel="stylesheet" href="css/cctv.css">
 <link rel="stylesheet" href="css/disposicion.css">
 <link rel="stylesheet" href="css/sensible.css">
-<!-- [Semana 08] Desafíos 1, 2 y 3 -->
 <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
@@ -71,7 +66,6 @@
       <span class="dot" aria-hidden="true"></span>
       <span id="connText">Conectado</span>
     </div>
-    <!-- [Semana 08] Botón de acción directa SOS (abre el modal de alerta) -->
     <button class="btn-sos" id="btnSOS" data-action="new-alert" type="button" aria-label="Reportar alerta SOS">
       <i class="fa-solid fa-tower-broadcast"></i> SOS
     </button>
@@ -320,7 +314,6 @@
             <div class="label">Cámaras activas</div>
             <div class="value" id="kpiCameras">42/45</div>
             <span class="delta up"><i data-lucide="trending-up"></i> +3 hoy</span>
-            <!-- [Semana 08] Desafío 3: progreso vs meta del turno -->
             <div class="kpi-progress">
               <div class="kpi-progress-label"><span>Meta del turno</span><strong>94%</strong></div>
               <div class="progress" role="progressbar" aria-label="Cámaras activas" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">
@@ -335,7 +328,6 @@
             <div class="label">Alertas del día</div>
             <div class="value" id="kpiAlerts">12</div>
             <span class="delta down"><i data-lucide="trending-down"></i> -2 vs ayer</span>
-            <!-- [Semana 08] Desafío 3: progreso vs meta del turno -->
             <div class="kpi-progress">
               <div class="kpi-progress-label"><span>Meta del turno</span><strong>80%</strong></div>
               <div class="progress" role="progressbar" aria-label="Alertas atendidas" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
@@ -350,7 +342,6 @@
             <div class="label">Tiempo de respuesta</div>
             <div class="value">4.8 min</div>
             <span class="delta up"><i data-lucide="trending-down"></i> Mejor 12%</span>
-            <!-- [Semana 08] Desafío 3: progreso vs meta del turno -->
             <div class="kpi-progress">
               <div class="kpi-progress-label"><span>Meta del turno</span><strong>96%</strong></div>
               <div class="progress" role="progressbar" aria-label="Tiempo de respuesta" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100">
@@ -365,7 +356,6 @@
             <div class="label">Incidentes críticos</div>
             <div class="value">2</div>
             <span class="delta flat"><i data-lucide="minus"></i> Sin cambios</span>
-            <!-- [Semana 08] Desafío 3: progreso vs meta del turno -->
             <div class="kpi-progress">
               <div class="kpi-progress-label"><span>Meta del turno</span><strong>50%</strong></div>
               <div class="progress" role="progressbar" aria-label="Incidentes críticos" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
@@ -628,17 +618,65 @@
       <div class="help-grid" id="helpGrid"></div>
     </section>
 
-    <footer class="page-footer" role="contentinfo">
-      <div class="footer-left">
-        <i data-lucide="shield-check"></i>
-        <span><strong>Sistema Integrado de Seguridad Ciudadana</strong> · Municipalidad Provincial</span>
+    <!-- ══════════════════ NUEVO FOOTER (TEMA CLARO) ══════════════════ -->
+    <footer class="footer-light" role="contentinfo">
+      
+      <!-- Barra de Estado -->
+      <div class="footer-status-bar">
+        <div class="status-info">
+          <i class="fa-solid fa-tower-broadcast"></i>
+          <div>
+            <strong>Estado del Sistema: Operativo</strong>
+            <span>Central de monitoreo receptiva a reportes en tiempo real.</span>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="showToast('Llamando a Central...', 'info')">
+          Llamar a Central
+        </button>
       </div>
-      <div class="footer-right">
-        <span>Versión 2.4.1 · Todos los derechos reservados © 2026</span>
+
+      <!-- Columnas de Información -->
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Central de Seguridad</h4>
+          <p>Protegiendo a la comunidad las 24 horas del día, los 365 días del año.</p>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Enlaces Rápidos</h4>
+          <ul>
+            <li><a href="#" onclick="goToView('home'); return false;">Inicio</a></li>
+            <li><a href="#" onclick="goToView('sectors'); return false;">Sectores</a></li>
+            <!-- Botón de Alerta modificado -->
+            <li><a href="#" onclick="goToView('alerts'); return false;">Alertas</a></li>
+            <!-- Botón de Reportes agregado -->
+            <li><a href="#" onclick="goToView('reports'); return false;">Reportes</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Teléfonos de Emergencia</h4>
+          <ul>
+            <li>Serenazgo: (01) 555-0199</li>
+            <li>Policía Nacional: 105</li>
+            <li>Bomberos: 116</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ubicación</h4>
+          <p>Av. Principal de la Ciudad N° 1234</p>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-bottom">
+        <p>© 2026 Sistema Integrado de Seguridad Ciudadana. Todos los derechos reservados.</p>
       </div>
     </footer>
-  </main>
-</div>
+
+  </main> <!-- Cierre de main-content -->
+</div> <!-- Cierre de app-layout -->
 
 <!-- ══════════════════ MODAL: NUEVA ALERTA ══════════════════ -->
 <div class="modal-backdrop" id="modalAlert">
