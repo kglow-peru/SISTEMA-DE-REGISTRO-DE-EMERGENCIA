@@ -1,0 +1,151 @@
+/* =====================================================================
+   VECINO SEGURO 2026 — Estilos de los requerimientos de la Semana 11
+   (archivo nuevo: no modifica ningún estilo existente)
+   ===================================================================== */
+
+/* ── REQ 1: Botón hamburguesa (oculto en escritorio) ── */
+.vs-hamburguesa {
+  display: none;
+  width: 40px; height: 40px;
+  align-items: center; justify-content: center;
+  font-size: 22px; line-height: 1;
+  color: var(--institutional-blue);
+  background: var(--bg-card);
+  border: 1.5px solid var(--bg-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.vs-hamburguesa:hover { background: var(--institutional-blue-light); }
+.vs-hamburguesa:focus-visible { outline: 2px solid var(--institutional-orange); outline-offset: 2px; }
+
+@media (max-width: 768px) {
+  .vs-hamburguesa { display: inline-flex; }
+
+  /* La barra de navegación (oculta por el CSS existente) se despliega como panel */
+  .top-nav.vs-nav-abierta {
+    display: flex;
+    position: fixed;
+    top: var(--header-h); left: 0; right: 0;
+    flex-direction: column; align-items: stretch;
+    gap: 4px; padding: 10px 14px;
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    background: #fff;
+    border-bottom: 3px solid var(--institutional-orange);
+    box-shadow: var(--shadow-lg);
+    z-index: 99;
+  }
+  .top-nav.vs-nav-abierta .top-nav-item { justify-content: flex-start; padding: 12px 14px; }
+}
+
+/* ── REQ 3: Contador de módulos en la barra superior ── */
+.vs-contador-modulos {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  font-size: 11.5px; font-weight: 700;
+  color: var(--institutional-blue);
+  background: var(--institutional-blue-light);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.vs-contador-modulos strong { color: var(--institutional-orange); font-size: 13px; }
+@media (max-width: 640px) { .vs-contador-modulos { display: none; } }
+
+/* ── Estructura de la vista Vecino Seguro ── */
+.vs-modulo-titulo {
+  margin: 28px 0 12px;
+  font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--institutional-orange);
+}
+.vs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 900px) { .vs-grid { grid-template-columns: 1fr; } }
+
+.vs-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-line);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.vs-card h4 { margin: 0 0 4px; font-size: 14px; color: var(--institutional-blue-dark); }
+.vs-card .vs-desc { margin: 0 0 14px; font-size: 12px; color: var(--text-secondary); }
+.vs-fila { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vs-fila .form-input { flex: 1 1 140px; width: auto; }
+.vs-resultado { margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+
+/* ── REQ 2: Semáforo de riesgo ── */
+.vs-semaforo {
+  margin-top: 14px; padding: 16px;
+  border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 800; text-align: center;
+  color: #fff; background: var(--text-muted);
+  transition: background .25s ease;
+}
+.vs-semaforo.verde    { background: var(--success); }
+.vs-semaforo.amarillo { background: #EAB308; color: #422006; }
+.vs-semaforo.naranja  { background: var(--institutional-orange); }
+.vs-semaforo.rojo     { background: var(--danger); }
+
+/* ── REQ 4: Galería de comunicados ── */
+.vs-comunicado {
+  padding: 16px; margin-bottom: 12px;
+  background: var(--institutional-blue-light);
+  border-left: 4px solid var(--institutional-blue);
+  border-radius: var(--radius-md);
+}
+.vs-comunicado h5 { margin: 0 0 6px; font-size: 14px; color: var(--institutional-blue-dark); }
+.vs-comunicado p { margin: 0 0 8px; font-size: 13px; color: var(--text-secondary); }
+.vs-comunicado small { font-weight: 700; color: var(--institutional-orange); }
+.vs-contador-com { font-size: 11.5px; font-weight: 700; color: var(--text-muted); margin-left: auto; }
+
+/* ── REQ 5: Lista de incidencias ── */
+.vs-lista { list-style: none; margin: 14px 0 0; padding: 0; }
+.vs-lista li {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 12px; margin-bottom: 8px;
+  font-size: 13px;
+  background: var(--bg-soft);
+  border: 1px solid var(--bg-line);
+  border-radius: var(--radius-md);
+}
+.vs-lista .vs-vacio { justify-content: center; color: var(--text-muted); font-style: italic; }
+.vs-lista .vs-hora { color: var(--text-muted); font-size: 11px; margin-left: 6px; }
+
+/* ── REQ 7: Claves de alarma ── */
+.vs-claves { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.vs-clave {
+  padding: 4px 10px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  color: var(--institutional-blue-dark);
+  background: var(--institutional-blue-light);
+  border-radius: var(--radius-sm);
+}
+.vs-aviso { margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--warning); }
+
+/* ── REQ 8: Reloj de la central (footer) ── */
+.vs-reloj-central {
+  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+  padding: 14px 24px;
+  background: var(--institutional-blue-dark);
+  color: #fff;
+}
+.vs-reloj-central .vs-etiqueta { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; opacity: .8; }
+.vs-reloj-central .vs-hora-central { font-family: var(--font-mono); font-size: 22px; font-weight: 700; }
+.vs-reloj-central .btn { padding: 6px 12px; }
+
+/* ── REQ 9: Tarjetas de sector y tooltip flotante ── */
+.vs-sector { cursor: help; }
+.vs-sector h4 { margin: 0 0 4px; font-size: 14px; color: var(--institutional-blue-dark); }
+.vs-sector p { margin: 0; font-size: 12px; color: var(--text-secondary); }
+.vs-tooltip {
+  position: fixed; z-index: 500;
+  padding: 10px 14px;
+  font-size: 12px; line-height: 1.5;
+  color: #fff; background: var(--institutional-blue-dark);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  max-width: 240px;
+}
+.vs-tooltip strong { display: block; color: #FDBA74; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; }
