@@ -33,43 +33,46 @@
   // MÓDULO 1 — NAVEGACIÓN Y EVALUACIÓN DE RIESGO
   // ===================================================================
 
-  // ── REQ 1: Menú hamburguesa responsive (Eventos + DOM) ──
+  // ── REQ 1: Menú hamburguesa (Eventos + DOM) ──
   /**
-   * Alterna la barra de navegación móvil con classList.toggle.
-   * Función flecha 2: se usa como manejador del clic en ☰.
+   * El botón ☰ abre y cierra el menú lateral completo en TODOS los dispositivos.
+   * Cerrado: solo se ve el botón. Abierto: aparecen todas las opciones.
    */
-  const alternarMenu = () => {
-    const nav = document.querySelector('.top-nav');
+  const menuEstaAbierto = () => document.body.classList.contains('vs-menu-abierto');
+
+  const fijarMenu = (abierto) => {
     const boton = $('vsHamburguesa');
-    if (!nav || !boton) return;
-    const abierto = nav.classList.toggle('vs-nav-abierta');
-    boton.setAttribute('aria-expanded', String(abierto));
-    boton.textContent = abierto ? '✕' : '☰';
-    console.log(`[Req 1] Menú móvil ${abierto ? 'abierto' : 'cerrado'}`);
+    document.body.classList.toggle('vs-menu-abierto', abierto);
+    if (boton) {
+      boton.setAttribute('aria-expanded', String(abierto));
+      boton.setAttribute('aria-label', abierto ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+      boton.textContent = abierto ? '✕' : '☰';
+    }
+    // Leaflet necesita recalcular su tamaño cuando el contenido se desplaza
+    if (typeof invalidateMap === 'function') setTimeout(() => invalidateMap(), 320);
   };
 
-  /** Cierra el menú móvil (al elegir una opción o al agrandar la pantalla). */
-  const cerrarMenu = () => {
-    const nav = document.querySelector('.top-nav');
-    const boton = $('vsHamburguesa');
-    if (!nav || !nav.classList.contains('vs-nav-abierta')) return;
-    nav.classList.remove('vs-nav-abierta');
-    if (boton) {
-      boton.setAttribute('aria-expanded', 'false');
-      boton.textContent = '☰';
-    }
-  };
+  const alternarMenu = () => fijarMenu(!menuEstaAbierto());
+  const cerrarMenu = () => fijarMenu(false);
 
   const iniciarMenu = () => {
     const boton = $('vsHamburguesa');
-    const nav = document.querySelector('.top-nav');
-    if (!boton || !nav) return;
+    const menu = $('menuLateral');
+    if (!boton || !menu) return;
     boton.addEventListener('click', alternarMenu);
-    nav.querySelectorAll('.top-nav-item').forEach((item) => {
-      item.addEventListener('click', cerrarMenu);
+
+    // En pantallas chicas, al elegir una opción el menú se cierra solo
+    menu.querySelectorAll('.sidebar-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth <= 900) cerrarMenu();
+      });
     });
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) cerrarMenu();
+
+    // Tocar el fondo oscuro o presionar Escape también lo cierra
+    const fondo = $('vsFondoMenu');
+    if (fondo) fondo.addEventListener('click', cerrarMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuEstaAbierto()) cerrarMenu();
     });
   };
 
