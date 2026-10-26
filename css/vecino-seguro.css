@@ -3,9 +3,9 @@
    (archivo nuevo: no modifica ningún estilo existente)
    ===================================================================== */
 
-/* ── REQ 1: Botón hamburguesa (oculto en escritorio) ── */
+/* ── REQ 1: Botón hamburguesa (visible en TODOS los dispositivos) ── */
 .vs-hamburguesa {
-  display: none;
+  display: inline-flex;
   width: 40px; height: 40px;
   align-items: center; justify-content: center;
   font-size: 22px; line-height: 1;
@@ -19,24 +19,39 @@
 .vs-hamburguesa:hover { background: var(--institutional-blue-light); }
 .vs-hamburguesa:focus-visible { outline: 2px solid var(--institutional-orange); outline-offset: 2px; }
 
-@media (max-width: 768px) {
-  .vs-hamburguesa { display: inline-flex; }
+/* ── Menú lateral desplegable (cerrado por defecto; solo queda el botón ☰) ── */
+.sidebar {
+  width: 240px;                       /* siempre con textos, como en la captura */
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform .3s ease, visibility 0s linear .3s;
+  box-shadow: none;
+}
+body.vs-menu-abierto .sidebar {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform .3s ease, visibility 0s;
+  box-shadow: var(--shadow-lg);
+}
 
-  /* La barra de navegación (oculta por el CSS existente) se despliega como panel */
-  .top-nav.vs-nav-abierta {
-    display: flex;
-    position: fixed;
-    top: var(--header-h); left: 0; right: 0;
-    flex-direction: column; align-items: stretch;
-    gap: 4px; padding: 10px 14px;
-    max-height: calc(100vh - var(--header-h));
-    overflow-y: auto;
-    background: #fff;
-    border-bottom: 3px solid var(--institutional-orange);
-    box-shadow: var(--shadow-lg);
-    z-index: 99;
-  }
-  .top-nav.vs-nav-abierta .top-nav-item { justify-content: flex-start; padding: 12px 14px; }
+/* El contenido ocupa todo el ancho cuando el menú está cerrado */
+.main-content { margin-left: 0; transition: margin-left .3s ease; }
+
+/* Fondo oscuro detrás del menú (solo pantallas chicas) */
+.vs-fondo-menu {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(15, 23, 42, .45);
+  z-index: 49;
+}
+
+/* Escritorio: el menú empuja el contenido */
+@media (min-width: 901px) {
+  body.vs-menu-abierto .main-content { margin-left: 240px; }
+}
+/* Celular y tablet: el menú se superpone al contenido */
+@media (max-width: 900px) {
+  body.vs-menu-abierto .vs-fondo-menu { display: block; }
 }
 
 /* ── REQ 3: Contador de módulos en la barra superior ── */
@@ -149,3 +164,8 @@
   max-width: 240px;
 }
 .vs-tooltip strong { display: block; color: #FDBA74; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; }
+/* ── Celular: el botón ☰ comparte la primera fila con el escudo y el título ── */
+@media (max-width: 575.98px) {
+  .vs-hamburguesa { order: 1; }
+  .brand-block { order: 1; width: auto; flex: 1 1 0; min-width: 0; }
+}
