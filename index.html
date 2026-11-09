@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="css/sensible.css">
 <link rel="stylesheet" href="css/estilos.css">
 <link rel="stylesheet" href="css/vecino-seguro.css">
+<link rel="stylesheet" href="css/cuadrantes.css">
 
 <!-- ══════════════════════════════════════════════════════════════
      ESTILOS DEL FOOTER (INCLUIDOS AQUÍ PARA EVITAR PROBLEMAS EN GITHUB)
@@ -545,26 +546,84 @@
         <div class="monitor-grid" id="monitorGrid"></div>
       </section>
 
-      <section class="secondary-grid">
-        <div class="panel">
-          <header class="panel-header">
-            <h4><i data-lucide="map"></i> Mapa del Sector 04</h4>
-            <div class="panel-meta">
-              <i data-lucide="crosshair" style="width:12px;height:12px"></i>
-              Cámaras y unidades en tiempo real
-            </div>
-          </header>
-          <div id="mini-map" role="img" aria-label="Mapa del sector"></div>
+            <!-- ══════════════════ MAPA INTERACTIVO DE CUADRANTES ══════════════════ -->
+      <section class="quadrant-section" aria-labelledby="quadrantTitle">
+
+        <div class="quadrant-topbar">
+          <h3 id="quadrantTitle">
+            <i data-lucide="map"></i> Central de Serenazgo · Mapa Interactivo de Cuadrantes
+          </h3>
+          <span class="quadrant-status-badge">
+            <span class="dot" aria-hidden="true"></span>
+            Servidor en Vivo | Alertas Activas: <strong id="quadrantAlertCount">0</strong>
+          </span>
         </div>
 
-        <div class="panel">
-          <header class="panel-header">
-            <h4><i data-lucide="bell"></i> Alertas recientes</h4>
-            <div class="panel-meta">Últimas 24 h</div>
-          </header>
-          <div class="incident-list" id="incidentList"></div>
+        <div class="quadrant-filters">
+          <span class="filter-label">Filtrar Mapa por Zona:</span>
+          <div class="filter-buttons" role="group" aria-label="Filtrar cuadrantes por zona">
+            <button class="zone-filter active" data-zone="all"    type="button">Todas las Zonas</button>
+            <button class="zone-filter"        data-zone="norte"  type="button">Zona Norte</button>
+            <button class="zone-filter"        data-zone="centro" type="button">Zona Centro</button>
+            <button class="zone-filter"        data-zone="sur"    type="button">Zona Sur</button>
+          </div>
+        </div>
+
+        <div class="quadrant-layout">
+
+          <!-- Mapa -->
+          <div class="quadrant-map-panel">
+            <div class="quadrant-map-header">
+              <h4><i data-lucide="crosshair"></i> Mapa Operativo en Tiempo Real</h4>
+              <span class="quadrant-map-hint">Haga clic en cualquier marcador</span>
+            </div>
+            <div class="quadrant-map" id="quadrantMap" role="application"
+                 aria-label="Mapa interactivo de cuadrantes del sector"></div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="quadrant-sidebar">
+
+            <!-- Panel de ubicación seleccionada -->
+            <div class="quadrant-info-panel" id="quadrantInfo">
+              <h4><i data-lucide="map-pin"></i> Panel de Ubicación Seleccionada</h4>
+              <p style="font-size:12.5px;color:var(--text-muted);padding:8px 0;">
+                Haz clic en cualquier marcador del mapa para ver el detalle operativo.
+              </p>
+            </div>
+
+            <!-- Unidades en campo -->
+            <div class="units-panel">
+              <h4><i data-lucide="truck"></i> Unidades en Campo</h4>
+              <ul>
+                <li>
+                  <i data-lucide="truck"></i>
+                  <div><strong>Unidades Móviles:</strong> 12 Activas</div>
+                </li>
+                <li>
+                  <i data-lucide="cctv"></i>
+                  <div><strong>Cámaras de Vigilancia:</strong> 98% Operativas</div>
+                </li>
+                <li>
+                  <i data-lucide="phone"></i>
+                  <div><strong>Central PNP:</strong> 105 &nbsp;·&nbsp; <strong>Serenazgo:</strong> (01) 511-0000</div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Alertas compactas -->
+            <div class="alerts-panel-compact">
+              <div class="panel-header-compact">
+                <h4><i data-lucide="bell"></i> Alertas recientes</h4>
+                <span class="meta">Últimas 24 h</span>
+              </div>
+              <div class="incident-list" id="incidentList"></div>
+            </div>
+
+          </div>
         </div>
       </section>
+      <!-- ══════════════════ FIN MAPA INTERACTIVO ══════════════════ -->
 
     </section>
 
@@ -1043,5 +1102,6 @@
 <script src="js/cctv.js"></script>
 <script src="js/app.js"></script>
 <script src="js/vecino-seguro.js"></script>
+<script src="js/cuadrantes.js"></script>
 </body>
 </html>
