@@ -20,7 +20,7 @@
 }
 .quadrant-topbar h3 {
   font-size: 16px; font-weight: 800; letter-spacing: -0.3px;
-  display: flex; align-items: center; gap: 10px; color: #fff;
+  display: flex; align-items: center; gap: 10px; color: #fff; margin: 0;
 }
 .quadrant-topbar h3 svg { width: 20px; height: 20px; color: var(--institutional-orange-2); stroke-width: 2.2; }
 
@@ -66,16 +66,21 @@
   display: grid;
   grid-template-columns: minmax(0, 1.8fr) minmax(320px, 1fr);
   gap: var(--space-4); padding: var(--space-4);
+  align-items: stretch; /* Hace que las columnas midan lo mismo */
 }
 @media (max-width: 1100px) { .quadrant-layout { grid-template-columns: 1fr; } }
 
 /* ══════════════════════════════════════════════════════════════
-   MAPA LEAFLET
+   MAPA LEAFLET Y TABLA
    ══════════════════════════════════════════════════════════════ */
 .quadrant-map-panel {
   background: var(--bg-card); border: 1px solid var(--bg-line);
   border-radius: var(--radius-md); overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Se estira para llenar la columna */
 }
+
 .quadrant-map-header {
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-2); padding: 10px 14px;
@@ -83,7 +88,7 @@
 }
 .quadrant-map-header h4 {
   font-size: 13px; font-weight: 800; color: var(--text-primary);
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 8px; margin: 0;
 }
 .quadrant-map-header h4 svg { width: 15px; height: 15px; color: var(--institutional-orange); stroke-width: 2.2; }
 .quadrant-map-hint { font-size: 11px; color: var(--text-muted); font-weight: 600; font-style: italic; }
@@ -91,9 +96,147 @@
 /* Contenedor del mapa (donde Leaflet inyecta todo) */
 .quadrant-map {
   width: 100%;
-  height: 520px;
+  height: 380px; /* Altura fija del mapa */
   background: #E8EDF3;
-  z-index: 1; /* Evita que los controles del mapa tapen los modales */
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* ── TABLA DE GESTIÓN ── */
+.quadrant-table-wrapper {
+  border-top: 1px solid var(--bg-line);
+  background: var(--bg-card);
+  flex: 1; /* ESTO HACE QUE LA TABLA LLENE EL ESPACIO BLANCO */
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Crucial para que el scroll funcione dentro de flexbox */
+}
+
+.quadrant-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--bg-line);
+}
+
+.quadrant-table-header h4 {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.quadrant-table-header h4 svg {
+  width: 15px;
+  height: 15px;
+  color: var(--institutional-orange);
+}
+
+.quadrant-table-header .meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* El contenedor que hace scroll si hay muchas filas */
+.quadrant-table-scroll {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.quadrant-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.quadrant-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  padding: 10px 16px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--bg-line);
+  z-index: 2;
+}
+
+.quadrant-table td {
+  padding: 12px 16px;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--bg-line);
+  vertical-align: middle;
+}
+
+.quadrant-table tr:last-child td {
+  border-bottom: none;
+}
+
+.quadrant-table tr:hover td {
+  background: var(--bg-soft);
+}
+
+.quadrant-table .q-id {
+  font-weight: 800;
+  color: var(--institutional-blue-dark);
+  font-family: var(--font-mono);
+}
+
+.quadrant-table .q-address {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.quadrant-table .q-staff {
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+/* Botón de acción dentro de la tabla */
+.btn-table-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  transition: all .15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-table-action svg {
+  width: 12px;
+  height: 12px;
+}
+
+.btn-table-action.activate {
+  background: #FEE2E2;
+  color: #DC2626;
+  border-color: #FCA5A5;
+}
+.btn-table-action.activate:hover {
+  background: #DC2626;
+  color: #fff;
+}
+
+.btn-table-action.deactivate {
+  background: #D1FAE5;
+  color: #059669;
+  border-color: #6EE7B7;
+}
+.btn-table-action.deactivate:hover {
+  background: #059669;
+  color: #fff;
 }
 
 /* Personalización de los Marcadores de Leaflet */
@@ -230,11 +373,13 @@
 .alerts-panel-compact .incident-body .desc { font-size: 10.5px; margin-bottom: 3px; }
 
 /* ── Responsive ── */
-@media (max-width: 900px) { .quadrant-map { height: 400px; } }
+@media (max-width: 900px) { .quadrant-map { height: 320px; } }
 @media (max-width: 640px) {
   .quadrant-topbar { flex-direction: column; align-items: flex-start; }
   .quadrant-topbar h3 { font-size: 14px; }
-  .quadrant-map { height: 340px; }
+  .quadrant-map { height: 280px; }
   .info-row { flex-direction: column; gap: 2px; }
   .info-row .info-label { min-width: 0; }
+  .quadrant-table th:nth-child(3),
+  .quadrant-table td:nth-child(3) { display: none; }
 }
