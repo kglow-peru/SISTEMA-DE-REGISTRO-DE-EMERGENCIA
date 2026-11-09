@@ -1,117 +1,134 @@
 // =====================================================================
-// CUADRANTES — Mapa interactivo de cuadrantes del sector
-// Integrado con APP.alerts, showToast y refreshIcons existentes.
+// CUADRANTES — Mapa Real de Leaflet centrado en Óvalo Santa Anita - TECSUP
 // =====================================================================
 (() => {
   'use strict';
 
-  // ── Datos de cuadrantes ──
+  // ── Coordenadas Reales (Óvalo de Santa Anita / TECSUP) ──
   const QUADRANTS = [
     { id: 'C-01', zone: 'norte',  status: 'safe',  name: 'Cuadrante C-01',
-      address: 'Av. Perú / Av. Universitaria', staff: '4 Serenazgos',
+      address: 'Av. Los Ruiseñores / Av. La Molina', staff: '4 Serenazgos',
       patrol: 'Móvil 03', desc: 'Zona residencial con patrullaje preventivo constante.',
-      pos: { top: 18, left: 22 } },
+      lat: -12.0490, lng: -76.9680 },
+
     { id: 'C-02', zone: 'norte',  status: 'alert', name: 'Cuadrante C-02',
-      address: 'Av. Central / Jr. Los Álamos', staff: '3 Serenazgos',
+      address: 'Av. Santa Anita / Calle Los Eucaliptos', staff: '3 Serenazgos',
       patrol: 'Móvil 05', desc: 'Reportes recientes de actividad sospechosa en la zona.',
-      pos: { top: 28, left: 56 } },
+      lat: -12.0520, lng: -76.9640 },
+
     { id: 'C-03', zone: 'centro', status: 'safe',  name: 'Cuadrante C-03',
-      address: 'Jr. Comercio / Av. Los Héroes', staff: '5 Serenazgos',
-      patrol: 'Móvil 01', desc: 'Zona comercial con alta afluencia peatonal.',
-      pos: { top: 50, left: 42 } },
+      address: 'Óvalo de Santa Anita / TECSUP', staff: '5 Serenazgos',
+      patrol: 'Móvil 01', desc: 'Zona comercial con alta afluencia peatonal y estudiantil.',
+      lat: -12.0545, lng: -76.9710 },
+
     { id: 'C-04', zone: 'centro', status: 'alert', name: 'Cuadrante C-04',
-      address: 'Av. Grau / Jr. Puno', staff: '2 Serenazgos',
+      address: 'Av. Las Gaviotas / Jr. Las Américas', staff: '2 Serenazgos',
       patrol: 'Móvil 04', desc: 'Se requiere refuerzo por incremento de incidentes.',
-      pos: { top: 58, left: 24 } },
+      lat: -12.0560, lng: -76.9670 },
+
     { id: 'C-05', zone: 'sur',    status: 'alert', name: 'Cuadrante C-05',
-      address: 'Av. Arequipa / Jr. Andahuaylas', staff: '3 Serenazgos',
+      address: 'Av. La Cultura / Parque Industrial', staff: '3 Serenazgos',
       patrol: 'Móvil 02', desc: 'Zona industrial con vigilancia reforzada.',
-      pos: { top: 80, left: 44 } },
+      lat: -12.0600, lng: -76.9730 },
+
     { id: 'C-06', zone: 'sur',    status: 'safe',  name: 'Cuadrante C-06',
-      address: 'Av. Brasil / Jr. Washington', staff: '4 Serenazgos',
+      address: 'Av. Aviación / Calle Los Olivos', staff: '4 Serenazgos',
       patrol: 'Móvil 06', desc: 'Zona residencial con patrullaje permanente.',
-      pos: { top: 78, left: 72 } }
+      lat: -12.0620, lng: -76.9660 }
   ];
 
   const STATE = { selectedId: null, filterZone: 'all' };
+  let map = null;
+  let markersLayer = null;
   let tooltipEl = null;
 
   // ── Helpers ──
   const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-  const buildBlocksHTML = () => {
-    // Grid 3x3 de manzanas con calles entre ellas
-    const blocks = [
-      { top: 4,  left: 4,  w: 24, h: 22 },
-      { top: 4,  left: 38, w: 24, h: 22 },
-      { top: 4,  left: 70, w: 26, h: 22 },
-      { top: 38, left: 4,  w: 24, h: 20 },
-      { top: 38, left: 38, w: 24, h: 20 },
-      { top: 38, left: 70, w: 26, h: 20 },
-      { top: 68, left: 4,  w: 24, h: 28 },
-      { top: 68, left: 38, w: 24, h: 28 },
-      { top: 68, left: 70, w: 26, h: 28 }
-    ];
-    return blocks.map(b =>
-      `<div class="map-block" style="top:${b.top}%;left:${b.left}%;width:${b.w}%;height:${b.h}%;"></div>`
-    ).join('');
-  };
-
-  const buildMarkersHTML = () => {
-    return QUADRANTS
-      .filter(q => STATE.filterZone === 'all' || q.zone === STATE.filterZone)
-      .map(q => {
-        const isSelected = q.id === STATE.selectedId;
-        const icon = q.status === 'safe' ? 'shield-check' : 'alert-triangle';
-        const statusText = q.status === 'safe' ? 'SEGURO' : 'EN ALERTA';
-        return `
-          <button class="quadrant-marker ${q.status} ${isSelected ? 'selected' : ''}"
-                  data-quadrant="${q.id}"
-                  type="button"
-                  aria-label="${q.name} - ${statusText}"
-                  aria-pressed="${isSelected}">
-            <i data-lucide="${icon}"></i>
-          </button>
-          <span class="quadrant-label" style="top:calc(${q.pos.top}% + 22px);left:${q.pos.left}%;">${q.id}</span>
-        `;
-      }).join('');
-  };
-
-  // ── Render del mapa ──
-  function renderQuadrantMap() {
+  // ═══════════════════════════════════════════════════════════════════
+  // INICIALIZAR MAPA REAL (LEAFLET)
+  // ═══════════════════════════════════════════════════════════════════
+  function initMap() {
     const mapEl = document.getElementById('quadrantMap');
-    if (!mapEl) return;
+    if (!mapEl || map) return;
+    if (typeof L === 'undefined') {
+      console.warn('[Cuadrantes] Leaflet no está disponible.');
+      return;
+    }
 
-    mapEl.innerHTML = `
-      <div class="map-street h-street" style="top:30%;"></div>
-      <div class="map-street h-street" style="top:62%;"></div>
-      <div class="map-street v-street" style="left:32%;"></div>
-      <div class="map-street v-street" style="left:66%;"></div>
-      <div class="map-street diagonal"></div>
-      ${buildBlocksHTML()}
-      ${QUADRANTS.filter(q => STATE.filterZone === 'all' || q.zone === STATE.filterZone).map(q =>
-        `<button class="quadrant-marker ${q.status} ${q.id === STATE.selectedId ? 'selected' : ''}"
-                 data-quadrant="${q.id}" type="button"
-                 aria-label="${q.name}"
-                 style="top:${q.pos.top}%;left:${q.pos.left}%;">
-           <i data-lucide="${q.status === 'safe' ? 'shield-check' : 'alert-triangle'}"></i>
-         </button>
-         <span class="quadrant-label" style="top:calc(${q.pos.top}% + 22px);left:${q.pos.left}%;">${q.id}</span>`
-      ).join('')}
-    `;
-
-    // Bind clicks
-    mapEl.querySelectorAll('.quadrant-marker').forEach(btn => {
-      btn.addEventListener('click', () => selectQuadrant(btn.dataset.quadrant));
-      btn.addEventListener('mouseenter', (e) => showTooltip(e.currentTarget));
-      btn.addEventListener('mouseleave', hideTooltip);
+    // Centrar en Óvalo Santa Anita / TECSUP
+    map = L.map(mapEl, {
+      center: [-12.0545, -76.9710], // Coordenadas TECSUP
+      zoom: 15,
+      zoomControl: true,
+      attributionControl: false
     });
 
-    if (typeof refreshIcons === 'function') refreshIcons();
-    updateAlertCount();
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(map);
+
+    markersLayer = L.layerGroup().addTo(map);
+    renderMarkers();
   }
 
-  // ── Panel info ──
+  // ═══════════════════════════════════════════════════════════════════
+  // RENDERIZAR MARCADORES EN EL MAPA
+  // ═══════════════════════════════════════════════════════════════════
+  function renderMarkers() {
+    if (!map || !markersLayer) return;
+    markersLayer.clearLayers();
+
+    const visible = QUADRANTS.filter(q =>
+      STATE.filterZone === 'all' || q.zone === STATE.filterZone
+    );
+
+    visible.forEach(q => {
+      const isSel = q.id === STATE.selectedId;
+      const isSafe = q.status === 'safe';
+      
+      // Colores institucionales
+      const bgColor = isSafe ? '#22C55E' : '#EF4444';
+      const iconName = isSafe ? 'shield-check' : 'alert-triangle';
+
+      // Crear un icono HTML personalizado para que se vea como la primera imagen
+      const customIcon = L.divIcon({
+        className: 'custom-map-marker',
+        html: `
+          <div class="marker-pin ${isSafe ? 'safe' : 'alert'} ${isSel ? 'selected' : ''}">
+            <i data-lucide="${iconName}"></i>
+          </div>
+          <div class="marker-label">${q.id}</div>
+        `,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40]
+      });
+
+      const marker = L.marker([q.lat, q.lng], { icon: customIcon }).addTo(markersLayer);
+
+      // Al hacer clic en el marcador
+      marker.on('click', () => {
+        STATE.selectedId = q.id;
+        renderMarkers();
+        renderQuadrantInfo();
+      });
+
+      // Tooltip flotante al pasar el mouse
+      marker.on('mouseover', (e) => {
+        showTooltip(e.originalEvent, q);
+      });
+      marker.on('mouseout', () => {
+        hideTooltip();
+      });
+    });
+
+    // Actualizar iconos Lucide dentro de los marcadores generados
+    if (typeof refreshIcons === 'function') refreshIcons();
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PANEL LATERAL (INFORMACIÓN DEL CUADRANTE)
+  // ═══════════════════════════════════════════════════════════════════
   function renderQuadrantInfo() {
     const panel = document.getElementById('quadrantInfo');
     if (!panel) return;
@@ -157,74 +174,68 @@
     if (typeof refreshIcons === 'function') refreshIcons();
   }
 
-  // ── Selección ──
-  function selectQuadrant(id) {
-    STATE.selectedId = id;
-    renderQuadrantMap();
-    renderQuadrantInfo();
-  }
-
-  // ── Toggle alerta ──
+  // ── Activar / Desactivar Alerta ──
   function toggleQuadrantAlert(id) {
     const q = QUADRANTS.find(x => x.id === id);
     if (!q) return;
 
-    q.status = q.status === 'alert' ? 'safe' : 'alert';
+    const wasAlert = q.status === 'alert';
+    q.status = wasAlert ? 'safe' : 'alert';
 
     // Sincroniza con el sistema de alertas global
-    if (q.status === 'alert' && typeof APP !== 'undefined' && Array.isArray(APP.alerts)) {
-      const now = new Date();
-      const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-      const newAlert = {
-        id: (typeof uid === 'function') ? uid() : Date.now(),
-        type: 'Sospechoso',
-        location: `${q.name} · ${q.address}`,
-        desc: `Alerta activada manualmente desde el mapa de cuadrantes. ${q.desc}`,
-        time,
-        status: 'review'
-      };
-      APP.alerts.unshift(newAlert);
+    if (typeof APP !== 'undefined' && Array.isArray(APP.alerts)) {
+      if (!wasAlert) {
+        const now = new Date();
+        const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        APP.alerts.unshift({
+          id: (typeof uid === 'function') ? uid() : Date.now(),
+          type: 'Sospechoso',
+          location: `${q.name} · ${q.address}`,
+          desc: `Alerta activada manualmente desde el mapa. ${q.desc}`,
+          time,
+          status: 'review',
+          quadrantId: q.id
+        });
+      } else {
+        const related = APP.alerts.find(a => a.quadrantId === q.id && a.status === 'review');
+        if (related) related.status = 'done';
+      }
+
       if (typeof renderRecentAlerts === 'function') renderRecentAlerts();
       if (typeof renderFullAlerts === 'function') renderFullAlerts();
       if (typeof updateAlertsBadge === 'function') updateAlertsBadge();
       if (typeof resetUpdateTimer === 'function') resetUpdateTimer();
     }
 
-    renderQuadrantMap();
+    renderMarkers();
     renderQuadrantInfo();
+    updateAlertCount();
 
     if (typeof showToast === 'function') {
       showToast(
-        q.status === 'alert'
-          ? `⚠ Alerta ACTIVADA en ${q.name}`
-          : `✓ Alerta desactivada en ${q.name}`,
-        q.status === 'alert' ? 'error' : 'success'
+        !wasAlert ? `⚠ Alerta ACTIVADA en ${q.name}` : `✓ Alerta desactivada en ${q.name}`,
+        !wasAlert ? 'error' : 'success'
       );
     }
   }
 
-  // ── Contador de alertas en el topbar ──
+  // ── Contador de Alertas en la barra superior ──
   function updateAlertCount() {
     const el = document.getElementById('quadrantAlertCount');
     if (!el) return;
-    const activeAlerts = (typeof APP !== 'undefined' && Array.isArray(APP.alerts))
+    const count = (typeof APP !== 'undefined' && Array.isArray(APP.alerts))
       ? APP.alerts.filter(a => a.status === 'review').length
       : QUADRANTS.filter(q => q.status === 'alert').length;
-    el.textContent = activeAlerts;
+    el.textContent = count;
   }
 
   // ── Tooltip flotante ──
-  function showTooltip(marker) {
-    const id = marker.dataset.quadrant;
-    const q = QUADRANTS.find(x => x.id === id);
-    if (!q) return;
-
+  function showTooltip(event, q) {
     if (!tooltipEl) {
       tooltipEl = document.createElement('div');
       tooltipEl.className = 'quadrant-tooltip';
       document.body.appendChild(tooltipEl);
     }
-
     tooltipEl.innerHTML = `
       <strong>${q.name}</strong>
       <div>${q.desc}</div>
@@ -232,16 +243,16 @@
         ${q.status === 'safe' ? '✓ ESTADO: SEGURO' : '⚠ ESTADO: ALERTA'}
       </span>
     `;
-
-    const rect = marker.getBoundingClientRect();
+    
     tooltipEl.classList.add('visible');
+    const tr = tooltipEl.getBoundingClientRect();
+    
+    let left = event.clientX - (tr.width / 2);
+    let top = event.clientY - tr.height - 20;
 
-    const tooltipRect = tooltipEl.getBoundingClientRect();
-    let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
-    let top  = rect.top - tooltipRect.height - 12;
-
-    left = Math.max(8, Math.min(left, window.innerWidth - tooltipRect.width - 8));
-    if (top < 8) top = rect.bottom + 12;
+    // Evitar que se salga de la pantalla
+    left = Math.max(8, Math.min(left, window.innerWidth - tr.width - 8));
+    if (top < 8) top = event.clientY + 20;
 
     tooltipEl.style.left = `${left}px`;
     tooltipEl.style.top  = `${top}px`;
@@ -251,7 +262,7 @@
     if (tooltipEl) tooltipEl.classList.remove('visible');
   }
 
-  // ── Filtros ──
+  // ── Filtros por Zona ──
   function initFilters() {
     document.querySelectorAll('.zone-filter').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -262,30 +273,56 @@
         const visible = QUADRANTS.filter(q =>
           STATE.filterZone === 'all' || q.zone === STATE.filterZone
         );
-        if (visible.length > 0) {
-          STATE.selectedId = visible[0].id;
-        } else {
-          STATE.selectedId = null;
+        
+        // Seleccionar automáticamente el primero de la zona
+        STATE.selectedId = visible.length > 0 ? visible[0].id : null;
+
+        // Ajustar vista del mapa si hay filtro
+        if (map && visible.length > 0) {
+          const bounds = L.latLngBounds(visible.map(q => [q.lat, q.lng]));
+          map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+        } else if (map && STATE.filterZone === 'all') {
+          map.setView([-12.0545, -76.9710], 15);
         }
 
-        renderQuadrantMap();
+        renderMarkers();
         renderQuadrantInfo();
         hideTooltip();
       });
     });
   }
 
-  // ── Arranque ──
+  // ═══════════════════════════════════════════════════════════════════
+  // ARRANQUE
+  // ═══════════════════════════════════════════════════════════════════
   function initQuadrants() {
-    renderQuadrantMap();
-    if (QUADRANTS.length > 0) {
+    // 1. Iniciar Mapa
+    initMap();
+
+    // 2. Seleccionar inicial
+    if (QUADRANTS.length > 0 && !STATE.selectedId) {
       STATE.selectedId = QUADRANTS[0].id;
-      renderQuadrantInfo();
     }
+    
+    // 3. Render inicial
+    renderMarkers();
+    renderQuadrantInfo();
+
+    // 4. Filtros
     initFilters();
 
-    // Mantiene sincronizado el contador con APP.alerts
+    // 5. Sincronizar contador
     setInterval(updateAlertCount, 2000);
+
+    // 6. Solucionar problema de renderizado de Leaflet al cambiar de vista
+    const dashView = document.getElementById('view-dashboard');
+    if (dashView) {
+      new MutationObserver(() => {
+        if (dashView.classList.contains('active') && map) {
+          setTimeout(() => map.invalidateSize(), 150);
+        }
+      }).observe(dashView, { attributes: true, attributeFilter: ['class'] });
+    }
   }
 
   if (document.readyState === 'loading') {
