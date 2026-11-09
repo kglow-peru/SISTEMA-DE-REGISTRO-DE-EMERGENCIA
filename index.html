@@ -26,9 +26,7 @@
 <link rel="stylesheet" href="css/vecino-seguro.css">
 <link rel="stylesheet" href="css/cuadrantes.css">
 
-<!-- ══════════════════════════════════════════════════════════════
-     ESTILOS DEL FOOTER (INCLUIDOS AQUÍ PARA EVITAR PROBLEMAS EN GITHUB)
-     ══════════════════════════════════════════════════════════════ -->
+<!-- ESTILOS DEL FOOTER -->
 <style>
   .footer-light {
     background-color: var(--bg-card, #FFFFFF);
@@ -39,7 +37,6 @@
     font-size: 13px;
     line-height: 1.6;
   }
-
   .footer-status-bar {
     max-width: 1200px;
     margin: -20px auto 0;
@@ -56,126 +53,26 @@
     z-index: 10;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
   }
-
-  .status-info {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .status-info i {
-    font-size: 24px;
-    color: #059669;
-  }
-
-  .status-info strong {
-    display: block;
-    color: #0F172A;
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-
-  .status-info span {
-    font-size: 12.5px;
-    color: #94A3B8;
-  }
-
-  .footer-status-bar .btn-primary {
-    background: #1E3A8A;
-    color: #FFFFFF;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 13px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-  }
-
-  .footer-status-bar .btn-primary:hover {
-    background: #0F2456;
-    transform: translateY(-2px);
-  }
-
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 24px 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 32px;
-  }
-
-  .footer-col h4 {
-    color: #0F2456;
-    font-size: 14px;
-    font-weight: 800;
-    margin-bottom: 16px;
-    letter-spacing: 0.5px;
-  }
-
-  .footer-col p {
-    font-size: 13px;
-    color: #475569;
-    max-width: 250px;
-  }
-
-  .footer-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .footer-col ul li {
-    margin-bottom: 8px;
-  }
-
-  .footer-col ul li a {
-    color: #475569;
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s ease, padding-left 0.2s ease;
-    display: inline-block;
-    font-weight: 500;
-  }
-
-  .footer-col ul li a:hover {
-    color: #EA580C;
-    padding-left: 4px;
-  }
-
-  .footer-bottom {
-    border-top: 1px solid #E5E9F0;
-    padding: 20px 24px;
-    text-align: center;
-    font-size: 12px;
-    color: #94A3B8;
-    background-color: #F1F5F9;
-  }
-
-  .footer-bottom p {
-    margin: 0;
-  }
-
+  .status-info { display: flex; align-items: center; gap: 16px; }
+  .status-info i { font-size: 24px; color: #059669; }
+  .status-info strong { display: block; color: #0F172A; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+  .status-info span { font-size: 12.5px; color: #94A3B8; }
+  .footer-status-bar .btn-primary { background: #1E3A8A; color: #FFFFFF; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 13px; transition: all 0.2s ease; cursor: pointer; }
+  .footer-status-bar .btn-primary:hover { background: #0F2456; transform: translateY(-2px); }
+  .footer-content { max-width: 1200px; margin: 0 auto; padding: 32px 24px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; }
+  .footer-col h4 { color: #0F2456; font-size: 14px; font-weight: 800; margin-bottom: 16px; letter-spacing: 0.5px; }
+  .footer-col p { font-size: 13px; color: #475569; max-width: 250px; }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; }
+  .footer-col ul li { margin-bottom: 8px; }
+  .footer-col ul li a { color: #475569; text-decoration: none; font-size: 13px; transition: color 0.2s ease, padding-left 0.2s ease; display: inline-block; font-weight: 500; }
+  .footer-col ul li a:hover { color: #EA580C; padding-left: 4px; }
+  .footer-bottom { border-top: 1px solid #E5E9F0; padding: 20px 24px; text-align: center; font-size: 12px; color: #94A3B8; background-color: #F1F5F9; }
+  .footer-bottom p { margin: 0; }
   @media (max-width: 768px) {
-    .footer-status-bar {
-      flex-direction: column;
-      text-align: center;
-      margin: -10px auto 0;
-    }
-    .status-info {
-      flex-direction: column;
-      gap: 8px;
-    }
-    .footer-content {
-      grid-template-columns: 1fr;
-      text-align: center;
-      padding: 24px 16px;
-    }
-    .footer-col p {
-      margin: 0 auto;
-    }
+    .footer-status-bar { flex-direction: column; text-align: center; margin: -10px auto 0; }
+    .status-info { flex-direction: column; gap: 8px; }
+    .footer-content { grid-template-columns: 1fr; text-align: center; padding: 24px 16px; }
+    .footer-col p { margin: 0 auto; }
   }
 </style>
 </head>
@@ -183,13 +80,11 @@
 
 <a href="#main" class="skip-link">Saltar al contenido principal</a>
 
-<!-- ══════════════════ HEADER ══════════════════ -->
+<!-- HEADER -->
 <header class="top-header" role="banner">
   <button class="vs-hamburguesa" id="vsHamburguesa" type="button" aria-label="Abrir menú de navegación" aria-controls="menuLateral" aria-expanded="false">☰</button>
   <div class="brand-block">
-    <div class="brand-shield" aria-hidden="true">
-      <i data-lucide="shield-check"></i>
-    </div>
+    <div class="brand-shield" aria-hidden="true"><i data-lucide="shield-check"></i></div>
     <div class="brand-text">
       <h1>Red Ciudadana de Alerta Temprana</h1>
       <p>Centro de Control y Monitoreo</p>
@@ -197,27 +92,13 @@
   </div>
 
   <nav class="top-nav" role="navigation" aria-label="Navegación principal">
-    <button class="top-nav-item" data-view="home" type="button">
-      <i data-lucide="home"></i><span>Inicio</span>
-    </button>
-    <button class="top-nav-item active" data-view="dashboard" type="button">
-      <i data-lucide="layout-dashboard"></i><span>Centro de control</span>
-    </button>
-    <button class="top-nav-item" data-view="cameras" type="button">
-      <i data-lucide="cctv"></i><span>Cámaras y Sectores</span>
-    </button>
-    <button class="top-nav-item" data-view="search" type="button">
-      <i data-lucide="search"></i><span>Búsqueda en Vivo</span>
-    </button>
-    <button class="top-nav-item" data-view="kpi" type="button">
-      <i data-lucide="bar-chart-3"></i><span>Indicadores KPI</span>
-    </button>
-    <button class="top-nav-item" data-view="reports" type="button">
-      <i data-lucide="file-text"></i><span>PDF Remoto</span>
-    </button>
-    <button class="top-nav-item" data-view="vecino" type="button">
-      <i data-lucide="shield-alert"></i><span>Vecino Seguro</span>
-    </button>
+    <button class="top-nav-item" data-view="home" type="button"><i data-lucide="home"></i><span>Inicio</span></button>
+    <button class="top-nav-item active" data-view="dashboard" type="button"><i data-lucide="layout-dashboard"></i><span>Centro de control</span></button>
+    <button class="top-nav-item" data-view="cameras" type="button"><i data-lucide="cctv"></i><span>Cámaras y Sectores</span></button>
+    <button class="top-nav-item" data-view="search" type="button"><i data-lucide="search"></i><span>Búsqueda en Vivo</span></button>
+    <button class="top-nav-item" data-view="kpi" type="button"><i data-lucide="bar-chart-3"></i><span>Indicadores KPI</span></button>
+    <button class="top-nav-item" data-view="reports" type="button"><i data-lucide="file-text"></i><span>PDF Remoto</span></button>
+    <button class="top-nav-item" data-view="vecino" type="button"><i data-lucide="shield-alert"></i><span>Vecino Seguro</span></button>
   </nav>
 
   <div class="header-right">
@@ -225,7 +106,7 @@
       <span class="dot" aria-hidden="true"></span>
       <span id="connText">Conectado</span>
     </div>
-    <div class="vs-contador-modulos" title="Total de secciones del portal (Req 3)">
+    <div class="vs-contador-modulos" title="Total de secciones del portal">
       Módulos activos: <strong id="vsTotalModulos">0</strong>
     </div>
     <button class="btn-sos" id="btnSOS" data-action="new-alert" type="button" aria-label="Reportar alerta SOS">
@@ -238,192 +119,98 @@
   </div>
 </header>
 
-<!-- ══════════════════ LAYOUT ══════════════════ -->
+<!-- LAYOUT -->
 <div class="app-layout">
-
   <div class="vs-fondo-menu" id="vsFondoMenu" aria-hidden="true"></div>
-
   <aside class="sidebar" id="menuLateral" role="complementary" aria-label="Menú lateral">
     <div class="sidebar-section">
       <div class="sidebar-title">Principal</div>
-      <button class="sidebar-item" data-view="home" type="button">
-        <i data-lucide="home"></i><span>Inicio</span>
-      </button>
-      <button class="sidebar-item active" data-view="dashboard" type="button">
-        <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
-      </button>
-      <button class="sidebar-item" data-view="alerts" type="button">
-        <i data-lucide="bell"></i><span>Alertas</span>
-        <span class="badge" id="alertsBadge">7</span>
-      </button>
-      <button class="sidebar-item" data-view="cameras" type="button">
-        <i data-lucide="video"></i><span>Cámaras</span>
-      </button>
-      <button class="sidebar-item" data-view="sectors" type="button">
-        <i data-lucide="map"></i><span>Sectores</span>
-      </button>
-      <button class="sidebar-item" data-view="vecino" type="button">
-        <i data-lucide="shield-alert"></i><span>Vecino Seguro</span>
-      </button>
+      <button class="sidebar-item" data-view="home" type="button"><i data-lucide="home"></i><span>Inicio</span></button>
+      <button class="sidebar-item active" data-view="dashboard" type="button"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
+      <button class="sidebar-item" data-view="alerts" type="button"><i data-lucide="bell"></i><span>Alertas</span><span class="badge" id="alertsBadge">7</span></button>
+      <button class="sidebar-item" data-view="cameras" type="button"><i data-lucide="video"></i><span>Cámaras</span></button>
+      <button class="sidebar-item" data-view="sectors" type="button"><i data-lucide="map"></i><span>Sectores</span></button>
+      <button class="sidebar-item" data-view="vecino" type="button"><i data-lucide="shield-alert"></i><span>Vecino Seguro</span></button>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-title">Análisis</div>
-      <button class="sidebar-item" data-view="reports" type="button">
-        <i data-lucide="file-text"></i><span>Reportes</span>
-      </button>
-      <button class="sidebar-item" data-view="stats" type="button">
-        <i data-lucide="pie-chart"></i><span>Estadísticas</span>
-      </button>
-      <button class="sidebar-item" data-view="operators" type="button">
-        <i data-lucide="users"></i><span>Operadores</span>
-      </button>
+      <button class="sidebar-item" data-view="reports" type="button"><i data-lucide="file-text"></i><span>Reportes</span></button>
+      <button class="sidebar-item" data-view="stats" type="button"><i data-lucide="pie-chart"></i><span>Estadísticas</span></button>
+      <button class="sidebar-item" data-view="operators" type="button"><i data-lucide="users"></i><span>Operadores</span></button>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-title">Sistema</div>
-      <button class="sidebar-item" data-view="settings" type="button">
-        <i data-lucide="settings"></i><span>Configuración</span>
-      </button>
-      <button class="sidebar-item" data-view="help" type="button">
-        <i data-lucide="help-circle"></i><span>Ayuda</span>
-      </button>
+      <button class="sidebar-item" data-view="settings" type="button"><i data-lucide="settings"></i><span>Configuración</span></button>
+      <button class="sidebar-item" data-view="help" type="button"><i data-lucide="help-circle"></i><span>Ayuda</span></button>
     </div>
-
     <div class="sidebar-footer">
       <div class="sidebar-user">
         <div class="avatar">OP</div>
-        <div class="info">
-          <strong>Operador Torres</strong>
-          <span>Sector 04</span>
-        </div>
+        <div class="info"><strong>Operador Torres</strong><span>Sector 04</span></div>
       </div>
     </div>
   </aside>
 
   <main class="main-content" id="main" role="main">
-
-    <!-- ══════════════════ VISTA: HOME (INICIO) ══════════════════ -->
+    <!-- VISTA: HOME -->
     <section class="view active" id="view-home">
-
       <div class="home-hero">
-        <div class="home-hero-icon">
-          <i data-lucide="shield-check"></i>
-        </div>
+        <div class="home-hero-icon"><i data-lucide="shield-check"></i></div>
         <h1>Red Ciudadana de Alerta Temprana</h1>
         <p>Sistema integrado de seguridad ciudadana · Monitoreo, alertas y coordinación en tiempo real</p>
       </div>
-
       <div class="auth-grid">
-
-        <!-- Login -->
         <div class="auth-card">
           <div class="auth-header">
-            <div class="auth-icon">
-              <i data-lucide="log-in"></i>
-            </div>
+            <div class="auth-icon"><i data-lucide="log-in"></i></div>
             <h2>Iniciar sesión</h2>
             <p>Accede con tu cuenta institucional</p>
           </div>
           <form id="formLogin" onsubmit="event.preventDefault(); handleLogin();">
-            <div class="form-group">
-              <label for="loginEmail">Correo electrónico</label>
-              <input type="email" id="loginEmail" class="form-input" placeholder="operador@municipalidad.gob.pe" required>
-            </div>
-            <div class="form-group">
-              <label for="loginPass">Contraseña</label>
-              <input type="password" id="loginPass" class="form-input" placeholder="••••••••" required>
-            </div>
+            <div class="form-group"><label for="loginEmail">Correo electrónico</label><input type="email" id="loginEmail" class="form-input" placeholder="operador@municipalidad.gob.pe" required></div>
+            <div class="form-group"><label for="loginPass">Contraseña</label><input type="password" id="loginPass" class="form-input" placeholder="••••••••" required></div>
             <div class="auth-row">
-              <label class="auth-check">
-                <input type="checkbox" checked> Recordarme
-              </label>
+              <label class="auth-check"><input type="checkbox" checked> Recordarme</label>
               <a href="#" class="auth-link" onclick="showToast('Contacta al administrador', 'info'); return false;">¿Olvidaste tu contraseña?</a>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
-              <i data-lucide="log-in"></i> Ingresar al sistema
-            </button>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;"><i data-lucide="log-in"></i> Ingresar al sistema</button>
           </form>
         </div>
-
-        <!-- Registro -->
         <div class="auth-card">
           <div class="auth-header">
-            <div class="auth-icon orange">
-              <i data-lucide="user-plus"></i>
-            </div>
+            <div class="auth-icon orange"><i data-lucide="user-plus"></i></div>
             <h2>Crear cuenta</h2>
             <p>Regístrate como operador o ciudadano</p>
           </div>
           <form id="formRegister" onsubmit="event.preventDefault(); handleRegister();">
-            <div class="form-group">
-              <label for="regName">Nombre completo</label>
-              <input type="text" id="regName" class="form-input" placeholder="Ej. Juan Pérez" required>
-            </div>
-            <div class="form-group">
-              <label for="regEmail">Correo electrónico</label>
-              <input type="email" id="regEmail" class="form-input" placeholder="tu@correo.com" required>
-            </div>
-            <div class="form-group">
-              <label for="regPass">Contraseña</label>
-              <input type="password" id="regPass" class="form-input" placeholder="Mínimo 6 caracteres" minlength="6" required>
-            </div>
+            <div class="form-group"><label for="regName">Nombre completo</label><input type="text" id="regName" class="form-input" placeholder="Ej. Juan Pérez" required></div>
+            <div class="form-group"><label for="regEmail">Correo electrónico</label><input type="email" id="regEmail" class="form-input" placeholder="tu@correo.com" required></div>
+            <div class="form-group"><label for="regPass">Contraseña</label><input type="password" id="regPass" class="form-input" placeholder="Mínimo 6 caracteres" minlength="6" required></div>
             <div class="form-group">
               <label for="regRole">Tipo de cuenta</label>
-              <select id="regRole" class="form-input">
-                <option value="operador">Operador de centro de control</option>
-                <option value="ciudadano">Ciudadano</option>
-                <option value="supervisor">Supervisor</option>
-              </select>
+              <select id="regRole" class="form-input"><option value="operador">Operador</option><option value="ciudadano">Ciudadano</option><option value="supervisor">Supervisor</option></select>
             </div>
-            <button type="submit" class="btn btn-orange" style="width:100%; justify-content:center;">
-              <i data-lucide="user-plus"></i> Crear cuenta
-            </button>
+            <button type="submit" class="btn btn-orange" style="width:100%; justify-content:center;"><i data-lucide="user-plus"></i> Crear cuenta</button>
           </form>
         </div>
-
       </div>
-
-      <!-- Características -->
       <section class="section-block" style="margin-top: 32px;">
-        <div class="section-title">
-          <h3>¿Qué ofrece el sistema?</h3>
-        </div>
+        <div class="section-title"><h3>¿Qué ofrece el sistema?</h3></div>
         <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-icon blue"><i data-lucide="cctv"></i></div>
-            <h4>Monitoreo en vivo</h4>
-            <p>Red de cámaras PTZ con visualización en tiempo real desde el centro de control.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon orange"><i data-lucide="bell"></i></div>
-            <h4>Alertas ciudadanas</h4>
-            <p>Registro y seguimiento de reportes ciudadanos con geolocalización exacta.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon green"><i data-lucide="map"></i></div>
-            <h4>Mapa de sectores</h4>
-            <p>Distribución geográfica de cámaras, unidades móviles y puntos críticos.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon red"><i data-lucide="bar-chart-3"></i></div>
-            <h4>Indicadores KPI</h4>
-            <p>Métricas de desempeño, tiempos de respuesta y cobertura operativa.</p>
-          </article>
+          <article class="feature-card"><div class="feature-icon blue"><i data-lucide="cctv"></i></div><h4>Monitoreo en vivo</h4><p>Red de cámaras PTZ con visualización en tiempo real.</p></article>
+          <article class="feature-card"><div class="feature-icon orange"><i data-lucide="bell"></i></div><h4>Alertas ciudadanas</h4><p>Registro y seguimiento de reportes ciudadanos.</p></article>
+          <article class="feature-card"><div class="feature-icon green"><i data-lucide="map"></i></div><h4>Mapa de sectores</h4><p>Distribución geográfica de cámaras y unidades.</p></article>
+          <article class="feature-card"><div class="feature-icon red"><i data-lucide="bar-chart-3"></i></div><h4>Indicadores KPI</h4><p>Métricas de desempeño y tiempos de respuesta.</p></article>
         </div>
       </section>
-
     </section>
 
-    <!-- ══════════════════ VISTA: DASHBOARD ══════════════════ -->
+    <!-- VISTA: DASHBOARD -->
     <section class="view" id="view-dashboard">
-
       <nav class="breadcrumb" aria-label="Ruta de navegación">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Panel de Operaciones y Monitoreo en Vivo</span>
+        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button><span class="breadcrumb-sep">/</span>
+        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button><span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Panel de Operaciones</span>
       </nav>
 
       <div class="page-header">
@@ -432,40 +219,25 @@
           <p>Supervisión en tiempo real de cámaras PTZ, alertas ciudadanas y despliegue de unidades en el sector asignado.</p>
         </div>
         <div class="page-header-actions">
-
           <div class="pagination-bar" id="cameraPagination">
-            <div class="pagination-info">
-              Mostrando <strong id="pagFrom">1–3</strong> de <strong id="pagTotal">5</strong>
-            </div>
+            <div class="pagination-info">Mostrando <strong id="pagFrom">1–3</strong> de <strong id="pagTotal">5</strong></div>
             <div class="pagination-controls" id="pagControls"></div>
             <select class="page-size-select" id="pagPageSize" aria-label="Elementos por página">
-              <option value="3">3 por pág.</option>
-              <option value="6">6 por pág.</option>
-              <option value="9">9 por pág.</option>
+              <option value="3">3 por pág.</option><option value="6">6 por pág.</option><option value="9">9 por pág.</option>
             </select>
           </div>
-
-          <button class="btn btn-ghost" id="btnExport" type="button">
-            <i data-lucide="download"></i> Exportar reporte
-          </button>
-          <button class="btn btn-orange" id="btnNewAlert" type="button">
-            <i data-lucide="radio"></i> Activar alerta
-          </button>
+          <button class="btn btn-ghost" id="btnExport" type="button"><i data-lucide="download"></i> Exportar</button>
+          <button class="btn btn-orange" id="btnNewAlert" type="button"><i data-lucide="radio"></i> Activar alerta</button>
         </div>
       </div>
 
       <section class="operator-banner" aria-label="Información del operador">
-        <div class="operator-avatar" aria-hidden="true">
-          <i data-lucide="user-shield"></i>
-        </div>
+        <div class="operator-avatar" aria-hidden="true"><i data-lucide="user-shield"></i></div>
         <div class="operator-info">
           <span class="badge-top">Operador en turno</span>
           <h3>Torres Pérez, José Antonio</h3>
           <p>Centro de control · Turno matutino · 08:00 – 16:00</p>
-          <div class="sector-tag">
-            <i data-lucide="map-pin"></i>
-            Sector 04 · San Gabriel · Zona Centro
-          </div>
+          <div class="sector-tag"><i data-lucide="map-pin"></i> Sector 04 · San Gabriel · Zona Centro</div>
         </div>
         <div class="operator-stats">
           <div class="operator-stat"><strong id="statAlerts">12</strong><span>Alertas hoy</span></div>
@@ -482,10 +254,8 @@
             <div class="value" id="kpiCameras">42/45</div>
             <span class="delta up"><i data-lucide="trending-up"></i> +3 hoy</span>
             <div class="kpi-progress">
-              <div class="kpi-progress-label"><span>Meta del turno</span><strong>94%</strong></div>
-              <div class="progress" role="progressbar" aria-label="Cámaras activas" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" style="width: 94%"></div>
-              </div>
+              <div class="kpi-progress-label"><span>Meta</span><strong>94%</strong></div>
+              <div class="progress" role="progressbar"><div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" style="width: 94%"></div></div>
             </div>
           </div>
         </article>
@@ -496,10 +266,8 @@
             <div class="value" id="kpiAlerts">12</div>
             <span class="delta down"><i data-lucide="trending-down"></i> -2 vs ayer</span>
             <div class="kpi-progress">
-              <div class="kpi-progress-label"><span>Meta del turno</span><strong>80%</strong></div>
-              <div class="progress" role="progressbar" aria-label="Alertas atendidas" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar bg-warning" style="width: 80%"></div>
-              </div>
+              <div class="kpi-progress-label"><span>Meta</span><strong>80%</strong></div>
+              <div class="progress" role="progressbar"><div class="progress-bar bg-warning" style="width: 80%"></div></div>
             </div>
           </div>
         </article>
@@ -510,10 +278,8 @@
             <div class="value">4.8 min</div>
             <span class="delta up"><i data-lucide="trending-down"></i> Mejor 12%</span>
             <div class="kpi-progress">
-              <div class="kpi-progress-label"><span>Meta del turno</span><strong>96%</strong></div>
-              <div class="progress" role="progressbar" aria-label="Tiempo de respuesta" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar bg-success" style="width: 96%"></div>
-              </div>
+              <div class="kpi-progress-label"><span>Meta</span><strong>96%</strong></div>
+              <div class="progress" role="progressbar"><div class="progress-bar bg-success" style="width: 96%"></div></div>
             </div>
           </div>
         </article>
@@ -524,10 +290,8 @@
             <div class="value">2</div>
             <span class="delta flat"><i data-lucide="minus"></i> Sin cambios</span>
             <div class="kpi-progress">
-              <div class="kpi-progress-label"><span>Meta del turno</span><strong>50%</strong></div>
-              <div class="progress" role="progressbar" aria-label="Incidentes críticos" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar bg-danger" style="width: 50%"></div>
-              </div>
+              <div class="kpi-progress-label"><span>Meta</span><strong>50%</strong></div>
+              <div class="progress" role="progressbar"><div class="progress-bar bg-danger" style="width: 50%"></div></div>
             </div>
           </div>
         </article>
@@ -535,32 +299,22 @@
 
       <section class="section-block" aria-labelledby="cams-title">
         <div class="section-title">
-          <h3 id="cams-title">Monitoreo de Cámaras PTZ y Unidades de Vigilancia</h3>
-          <div class="meta">
-            <i data-lucide="refresh-cw" style="width:13px;height:13px"></i>
-            Actualizado hace <span id="lastUpdate">12</span> s
-          </div>
+          <h3 id="cams-title">Monitoreo de Cámaras PTZ y Unidades</h3>
+          <div class="meta"><i data-lucide="refresh-cw" style="width:13px;height:13px"></i> Actualizado hace <span id="lastUpdate">12</span> s</div>
         </div>
-
         <div class="monitor-grid" id="monitorGrid"></div>
       </section>
 
-      <!-- ══════════════════ MAPA INTERACTIVO DE CUADRANTES ══════════════════ -->
+      <!-- MAPA INTERACTIVO -->
       <section class="quadrant-section" aria-labelledby="quadrantTitle">
-
         <div class="quadrant-topbar">
-          <h3 id="quadrantTitle">
-            <i data-lucide="map"></i> Central de Serenazgo · Mapa Interactivo de Cuadrantes
-          </h3>
-          <span class="quadrant-status-badge">
-            <span class="dot" aria-hidden="true"></span>
-            Servidor en Vivo | Alertas Activas: <strong id="quadrantAlertCount">0</strong>
-          </span>
+          <h3 id="quadrantTitle"><i data-lucide="map"></i> Central de Serenazgo · Mapa Interactivo de Cuadrantes</h3>
+          <span class="quadrant-status-badge"><span class="dot" aria-hidden="true"></span> Servidor en Vivo | Alertas Activas: <strong id="quadrantAlertCount">0</strong></span>
         </div>
 
         <div class="quadrant-filters">
           <span class="filter-label">Filtrar Mapa por Zona:</span>
-          <div class="filter-buttons" role="group" aria-label="Filtrar cuadrantes por zona">
+          <div class="filter-buttons" role="group">
             <button class="zone-filter active" data-zone="all"    type="button">Todas las Zonas</button>
             <button class="zone-filter"        data-zone="norte"  type="button">Zona Norte</button>
             <button class="zone-filter"        data-zone="centro" type="button">Zona Centro</button>
@@ -569,24 +323,22 @@
         </div>
 
         <div class="quadrant-layout">
-
-          <!-- Mapa y Tabla de Gestión -->
+          <!-- Mapa y Tabla -->
           <div class="quadrant-map-panel">
             <div class="quadrant-map-header">
               <h4><i data-lucide="crosshair"></i> Mapa Operativo en Tiempo Real</h4>
               <span class="quadrant-map-hint">Haga clic en cualquier marcador</span>
             </div>
-            <div class="quadrant-map" id="quadrantMap" role="application"
-                 aria-label="Mapa interactivo de cuadrantes del sector"></div>
+            <div class="quadrant-map" id="quadrantMap" role="application"></div>
                  
-            <!-- NUEVA TABLA DE GESTIÓN -->
+            <!-- TABLA DE GESTIÓN -->
             <div class="quadrant-table-wrapper">
               <div class="quadrant-table-header">
                 <h4><i data-lucide="list"></i> Gestión Rápida de Cuadrantes</h4>
-                <div style="display:flex; align-items:center; gap:12px;">
+                <div class="table-actions">
                   <span class="meta">Acciones en tiempo real</span>
-                  <button class="btn btn-orange" data-action="new-alert" type="button" style="padding: 6px 12px; font-size: 11.5px;">
-                    <i data-lucide="plus"></i> Nueva Alerta
+                  <button class="btn btn-orange" id="btnAddQuadrant" type="button" style="padding: 6px 12px; font-size: 11.5px;">
+                    <i data-lucide="plus"></i> Agregar Cuadrante
                   </button>
                 </div>
               </div>
@@ -601,9 +353,7 @@
                       <th>Acción</th>
                     </tr>
                   </thead>
-                  <tbody id="quadrantTableBody">
-                    <!-- Renderizado por JS -->
-                  </tbody>
+                  <tbody id="quadrantTableBody"></tbody>
                 </table>
               </div>
             </div>
@@ -611,35 +361,18 @@
 
           <!-- Sidebar -->
           <div class="quadrant-sidebar">
-
-            <!-- Panel de ubicación seleccionada -->
             <div class="quadrant-info-panel" id="quadrantInfo">
               <h4><i data-lucide="map-pin"></i> Panel de Ubicación Seleccionada</h4>
-              <p style="font-size:12.5px;color:var(--text-muted);padding:8px 0;">
-                Haz clic en cualquier marcador del mapa para ver el detalle operativo.
-              </p>
+              <p style="font-size:12.5px;color:var(--text-muted);padding:8px 0;">Haz clic en cualquier marcador del mapa para ver el detalle.</p>
             </div>
-
-            <!-- Unidades en campo -->
             <div class="units-panel">
               <h4><i data-lucide="truck"></i> Unidades en Campo</h4>
               <ul>
-                <li>
-                  <i data-lucide="truck"></i>
-                  <div><strong>Unidades Móviles:</strong> 12 Activas</div>
-                </li>
-                <li>
-                  <i data-lucide="cctv"></i>
-                  <div><strong>Cámaras de Vigilancia:</strong> 98% Operativas</div>
-                </li>
-                <li>
-                  <i data-lucide="phone"></i>
-                  <div><strong>Central PNP:</strong> 105 &nbsp;·&nbsp; <strong>Serenazgo:</strong> (01) 511-0000</div>
-                </li>
+                <li><i data-lucide="truck"></i><div><strong>Unidades Móviles:</strong> 12 Activas</div></li>
+                <li><i data-lucide="cctv"></i><div><strong>Cámaras de Vigilancia:</strong> 98% Operativas</div></li>
+                <li><i data-lucide="phone"></i><div><strong>Central PNP:</strong> 105 &nbsp;·&nbsp; <strong>Serenazgo:</strong> (01) 511-0000</div></li>
               </ul>
             </div>
-
-            <!-- Alertas compactas -->
             <div class="alerts-panel-compact">
               <div class="panel-header-compact">
                 <h4><i data-lucide="bell"></i> Alertas recientes</h4>
@@ -647,476 +380,153 @@
               </div>
               <div class="incident-list" id="incidentList"></div>
             </div>
-
           </div>
         </div>
       </section>
-      <!-- ══════════════════ FIN MAPA INTERACTIVO ══════════════════ -->
-
     </section>
 
-    <!-- ══════════════════ VISTA: ALERTAS ══════════════════ -->
+    <!-- Otras Vistas (Alertas, Cámaras, Sectores, etc.) -->
     <section class="view" id="view-alerts">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="alerts" type="button">Alertas</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Gestión de alertas ciudadanas</span>
-      </nav>
       <div class="page-header">
-        <div>
-          <h2>Gestión de Alertas</h2>
-          <p>Administración, seguimiento y respuesta a reportes ciudadanos en tiempo real.</p>
-        </div>
-        <div class="page-header-actions">
-          <button class="btn btn-orange" data-action="new-alert" type="button">
-            <i data-lucide="plus"></i> Nueva alerta
-          </button>
-        </div>
+        <div><h2>Gestión de Alertas</h2><p>Administración de reportes ciudadanos en tiempo real.</p></div>
+        <div class="page-header-actions"><button class="btn btn-orange" data-action="new-alert" type="button"><i data-lucide="plus"></i> Nueva alerta</button></div>
       </div>
-      <div class="panel">
-        <div class="incident-list" id="alertsFullList"></div>
-      </div>
+      <div class="panel"><div class="incident-list" id="alertsFullList"></div></div>
     </section>
 
-    <!-- ══════════════════ VISTA: CÁMARAS ══════════════════ -->
     <section class="view" id="view-cameras">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="cameras" type="button">Cámaras</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Red de videovigilancia</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Red de Videovigilancia</h2>
-          <p>Estado, ubicación y control de las cámaras PTZ y unidades móviles del sector.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Red de Videovigilancia</h2><p>Estado y control de las cámaras PTZ.</p></div></div>
       <div class="monitor-grid" id="camerasFullGrid"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: SECTORES ══════════════════ -->
     <section class="view" id="view-sectors">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="sectors" type="button">Sectores</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Mapa general</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Sectores del Distrito</h2>
-          <p>Distribución geográfica y estado operativo de cada sector.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Sectores del Distrito</h2><p>Distribución geográfica.</p></div></div>
       <div class="sectors-grid" id="sectorsGrid"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: BÚSQUEDA ══════════════════ -->
     <section class="view" id="view-search">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="search" type="button">Búsqueda en Vivo</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Rastreo de unidades</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Búsqueda en Vivo</h2>
-          <p>Localiza cámaras, unidades o sectores en tiempo real.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Búsqueda en Vivo</h2><p>Localiza cámaras y unidades.</p></div></div>
       <div class="panel">
-        <div class="search-box">
-          <i data-lucide="search"></i>
-          <input type="text" id="searchInput" placeholder="Buscar por cámara, unidad, sector o dirección...">
-        </div>
+        <div class="search-box"><i data-lucide="search"></i><input type="text" id="searchInput" placeholder="Buscar..."></div>
         <div id="searchResults" class="search-results"></div>
       </div>
     </section>
 
-    <!-- ══════════════════ VISTA: KPI ══════════════════ -->
     <section class="view" id="view-kpi">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="kpi" type="button">Indicadores</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">KPI operativos</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Indicadores KPI</h2>
-          <p>Métricas de desempeño, respuesta y cobertura del sistema.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Indicadores KPI</h2><p>Métricas de desempeño.</p></div></div>
       <div class="kpi-detail-grid" id="kpiDetailGrid"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: REPORTES ══════════════════ -->
     <section class="view" id="view-reports">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="reports" type="button">Reportes</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Generación de documentos</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Generación de Reportes</h2>
-          <p>Exporta reportes en PDF o CSV de alertas, incidentes y operatividad.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Generación de Reportes</h2><p>Exporta reportes en PDF o CSV.</p></div></div>
       <div class="reports-grid" id="reportsGrid"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: ESTADÍSTICAS ══════════════════ -->
     <section class="view" id="view-stats">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="stats" type="button">Estadísticas</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Análisis histórico</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Estadísticas del Sistema</h2>
-          <p>Análisis histórico de incidentes, tiempo de respuesta y efectividad.</p>
-        </div>
-      </div>
-      <div class="panel" style="padding:32px;text-align:center;">
-        <i data-lucide="bar-chart-3" style="width:48px;height:48px;color:var(--text-muted);margin:0 auto 16px;"></i>
-        <h3 style="font-size:16px;font-weight:700;margin-bottom:8px;">Módulo en desarrollo</h3>
-        <p style="color:var(--text-muted);font-size:13px;">Los gráficos estadísticos estarán disponibles en la próxima versión.</p>
-      </div>
+      <div class="page-header"><div><h2>Estadísticas</h2><p>Análisis histórico.</p></div></div>
+      <div class="panel" style="padding:32px;text-align:center;"><h3>Módulo en desarrollo</h3></div>
     </section>
 
-    <!-- ══════════════════ VISTA: OPERADORES ══════════════════ -->
     <section class="view" id="view-operators">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="operators" type="button">Operadores</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Equipo de turno</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Operadores del Sistema</h2>
-          <p>Personal en turno y disponibilidad operativa.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Operadores</h2><p>Personal en turno.</p></div></div>
       <div class="operators-grid" id="operatorsGrid"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: CONFIGURACIÓN ══════════════════ -->
     <section class="view" id="view-settings">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="settings" type="button">Configuración</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Preferencias</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Configuración del Sistema</h2>
-          <p>Ajustes de notificaciones, visualización y cuenta.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Configuración</h2><p>Ajustes del sistema.</p></div></div>
       <div class="settings-list" id="settingsList"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: AYUDA ══════════════════ -->
     <section class="view" id="view-help">
-      <nav class="breadcrumb">
-        <button class="breadcrumb-link" data-view="home" type="button">Inicio</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="dashboard" type="button">Centro de control</button>
-        <span class="breadcrumb-sep">/</span>
-        <button class="breadcrumb-link" data-view="help" type="button">Ayuda</button>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">Centro de soporte</span>
-      </nav>
-      <div class="page-header">
-        <div>
-          <h2>Centro de Ayuda</h2>
-          <p>Guías, atajos y soporte técnico del sistema.</p>
-        </div>
-      </div>
+      <div class="page-header"><div><h2>Centro de Ayuda</h2><p>Guías y soporte.</p></div></div>
       <div class="help-grid" id="helpGrid"></div>
     </section>
 
-    <!-- ══════════════════ VISTA: VECINO SEGURO 2026 (Semana 11) ══════════════════ -->
     <section class="view" id="view-vecino">
-      <div class="page-header">
-        <div>
-          <h2>Vecino Seguro 2026</h2>
-          <p>Portal ciudadano: evaluación de riesgo, incidencias, comunicados y monitoreo.</p>
-        </div>
-      </div>
-
-      <!-- ───── MÓDULO 1: NAVEGACIÓN Y EVALUACIÓN DE RIESGO ───── -->
+      <div class="page-header"><div><h2>Vecino Seguro 2026</h2><p>Portal ciudadano.</p></div></div>
       <h3 class="vs-modulo-titulo">Módulo 1 · Evaluación de riesgo</h3>
       <div class="vs-grid">
         <section class="vs-card" id="vs-mod-semaforo">
-          <h4>Semáforo de riesgo por cuadrante</h4>
-          <p class="vs-desc">Ingresa los reportes mensuales de tu zona (0 a 30+).</p>
-          <div class="vs-fila">
-            <input type="number" min="0" class="form-input" id="vsReportesZona" placeholder="Ej. 12">
-            <button type="button" class="btn btn-primary" id="vsBtnRiesgo">Evaluar</button>
-          </div>
+          <h4>Semáforo de riesgo</h4><p class="vs-desc">Ingresa los reportes mensuales.</p>
+          <div class="vs-fila"><input type="number" min="0" class="form-input" id="vsReportesZona" placeholder="Ej. 12"><button type="button" class="btn btn-primary" id="vsBtnRiesgo">Evaluar</button></div>
           <div class="vs-semaforo" id="vsSemaforo">Sin evaluar</div>
         </section>
-
-        <!-- ───── MÓDULO 2: Galería de comunicados ───── -->
         <section class="vs-card" id="vs-mod-comunicados">
-          <h4>Comunicados de patrullaje</h4>
-          <p class="vs-desc">Anuncios preventivos de serenazgo y policía.</p>
+          <h4>Comunicados</h4><p class="vs-desc">Anuncios preventivos.</p>
           <div class="vs-comunicado" id="vsComunicado"></div>
-          <div class="vs-fila">
-            <button type="button" class="btn btn-ghost" id="vsBtnAnterior">← Anterior</button>
-            <button type="button" class="btn btn-primary" id="vsBtnSiguiente">Siguiente →</button>
-            <span class="vs-contador-com" id="vsContadorCom"></span>
-          </div>
+          <div class="vs-fila"><button type="button" class="btn btn-ghost" id="vsBtnAnterior">← Anterior</button><button type="button" class="btn btn-primary" id="vsBtnSiguiente">Siguiente →</button><span class="vs-contador-com" id="vsContadorCom"></span></div>
         </section>
       </div>
-
       <h3 class="vs-modulo-titulo">Módulo 2 · Gestión de incidencias</h3>
       <div class="vs-grid">
         <section class="vs-card" id="vs-mod-incidencias">
-          <h4>Registro de incidencias</h4>
-          <p class="vs-desc">Tipo de incidencia: Robo, Alumbrado, Sospechoso…</p>
-          <form class="vs-fila" id="vsFormReporte">
-            <input type="text" class="form-input" id="vsTipoIncidencia" placeholder="Tipo de incidencia" autocomplete="off">
-            <button type="submit" class="btn btn-orange">Reportar</button>
-          </form>
+          <h4>Registro de incidencias</h4><p class="vs-desc">Reporta un incidente.</p>
+          <form class="vs-fila" id="vsFormReporte"><input type="text" class="form-input" id="vsTipoIncidencia" placeholder="Tipo" autocomplete="off"><button type="submit" class="btn btn-orange">Reportar</button></form>
           <ul class="vs-lista" id="vsListaReportes"></ul>
         </section>
-
         <div>
           <section class="vs-card" id="vs-mod-tasa" style="margin-bottom:16px;">
-            <h4>Tasa de incidencias por 1,000 habitantes</h4>
-            <p class="vs-desc">Tasa = (Delitos / Población) × 1000</p>
-            <div class="vs-fila">
-              <input type="number" min="1" step="1" class="form-input" id="vsPoblacion" placeholder="Población">
-              <input type="number" min="1" step="1" class="form-input" id="vsDelitos" placeholder="Delitos">
-              <button type="button" class="btn btn-primary" id="vsBtnTasa">Calcular</button>
-            </div>
+            <h4>Tasa de incidencias</h4><p class="vs-desc">Tasa = (Delitos / Población) × 1000</p>
+            <div class="vs-fila"><input type="number" min="1" class="form-input" id="vsPoblacion" placeholder="Población"><input type="number" min="1" class="form-input" id="vsDelitos" placeholder="Delitos"><button type="button" class="btn btn-primary" id="vsBtnTasa">Calcular</button></div>
             <div class="vs-resultado" id="vsResultadoTasa"></div>
           </section>
-
           <section class="vs-card" id="vs-mod-claves">
-            <h4>Generador de claves de alarma vecinal</h4>
-            <p class="vs-desc">Cantidad de códigos a generar (máximo 20).</p>
-            <div class="vs-fila">
-              <input type="number" min="1" step="1" class="form-input" id="vsCantidadClaves" placeholder="Cantidad N">
-              <button type="button" class="btn btn-primary" id="vsBtnClaves">Generar</button>
-            </div>
-            <div class="vs-aviso" id="vsAvisoClaves"></div>
-            <div class="vs-claves" id="vsClaves"></div>
+            <h4>Claves de alarma</h4><p class="vs-desc">Generar códigos (máx 20).</p>
+            <div class="vs-fila"><input type="number" min="1" class="form-input" id="vsCantidadClaves" placeholder="Cantidad"><button type="button" class="btn btn-primary" id="vsBtnClaves">Generar</button></div>
+            <div class="vs-aviso" id="vsAvisoClaves"></div><div class="vs-claves" id="vsClaves"></div>
           </section>
         </div>
       </div>
-
-      <h3 class="vs-modulo-titulo">Módulo 3 · Sectores y serenazgo</h3>
-      <section class="vs-grid" id="vs-mod-sectores">
-        <article class="vs-card vs-sector" data-sector="Zona Centro">
-          <h4>Zona Centro</h4>
-          <p>Pasa el cursor para ver el teléfono de la patrulla.</p>
-        </article>
-        <article class="vs-card vs-sector" data-sector="Zona Sur">
-          <h4>Zona Sur</h4>
-          <p>Pasa el cursor para ver el teléfono de la patrulla.</p>
-        </article>
-        <article class="vs-card vs-sector" data-sector="Zona Norte">
-          <h4>Zona Norte</h4>
-          <p>Pasa el cursor para ver el teléfono de la patrulla.</p>
-        </article>
-        <article class="vs-card vs-sector" data-sector="Zona Industrial">
-          <h4>Zona Industrial</h4>
-          <p>Pasa el cursor para ver el teléfono de la patrulla.</p>
-        </article>
-      </section>
     </section>
 
-    <!-- ══════════════════ NUEVO FOOTER (TEMA CLARO) ══════════════════ -->
+    <!-- FOOTER -->
     <footer class="footer-light" role="contentinfo">
-      
-      <!-- Barra de Estado -->
       <div class="footer-status-bar">
-        <div class="status-info">
-          <i class="fa-solid fa-tower-broadcast"></i>
-          <div>
-            <strong>Estado del Sistema: Operativo</strong>
-            <span>Central de monitoreo receptiva a reportes en tiempo real.</span>
-          </div>
-        </div>
-        <button class="btn btn-primary" onclick="showToast('Llamando a Central...', 'info')">
-          Llamar a Central
-        </button>
+        <div class="status-info"><i class="fa-solid fa-tower-broadcast"></i><div><strong>Estado del Sistema: Operativo</strong><span>Central de monitoreo receptiva.</span></div></div>
+        <button class="btn btn-primary" onclick="showToast('Llamando a Central...', 'info')">Llamar a Central</button>
       </div>
-
-      <!-- Columnas de Información -->
       <div class="footer-content">
-        <div class="footer-col">
-          <h4>Central de Seguridad</h4>
-          <p>Protegiendo a la comunidad las 24 horas del día, los 365 días del año.</p>
-        </div>
-        
-        <div class="footer-col">
-          <h4>Enlaces Rápidos</h4>
-          <ul>
-            <li><a href="#" onclick="goToView('home'); return false;">Inicio</a></li>
-            <li><a href="#" onclick="goToView('sectors'); return false;">Sectores</a></li>
-            <li><a href="#" onclick="goToView('alerts'); return false;">Alertas</a></li>
-            <li><a href="#" onclick="goToView('reports'); return false;">Reportes</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Teléfonos de Emergencia</h4>
-          <ul>
-            <li>Serenazgo: (01) 555-0199</li>
-            <li>Policía Nacional: 105</li>
-            <li>Bomberos: 116</li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Ubicación</h4>
-          <p>Av. Principal de la Ciudad N° 1234</p>
-        </div>
+        <div class="footer-col"><h4>Central de Seguridad</h4><p>Protegiendo a la comunidad 24/7.</p></div>
+        <div class="footer-col"><h4>Enlaces Rápidos</h4><ul><li><a href="#" onclick="goToView('home'); return false;">Inicio</a></li><li><a href="#" onclick="goToView('sectors'); return false;">Sectores</a></li></ul></div>
+        <div class="footer-col"><h4>Teléfonos</h4><ul><li>Serenazgo: (01) 555-0199</li><li>PNP: 105</li></ul></div>
+        <div class="footer-col"><h4>Ubicación</h4><p>Av. Principal N° 1234</p></div>
       </div>
-
-      <!-- Req 8: Reloj de la central de monitoreo 24/7 -->
       <div class="vs-reloj-central">
-        <span class="vs-etiqueta">Central de monitoreo 24/7</span>
-        <span class="vs-hora-central" id="vsHoraCentral">--:--:--</span>
-        <button type="button" class="btn btn-ghost" id="vsBtnReloj">⏸ Pausar</button>
+        <span class="vs-etiqueta">Central de monitoreo 24/7</span><span class="vs-hora-central" id="vsHoraCentral">--:--:--</span><button type="button" class="btn btn-ghost" id="vsBtnReloj">⏸ Pausar</button>
       </div>
-
-      <!-- Copyright -->
-      <div class="footer-bottom">
-        <p>© 2026 Sistema Integrado de Seguridad Ciudadana. Todos los derechos reservados.</p>
-      </div>
+      <div class="footer-bottom"><p>© 2026 Sistema Integrado de Seguridad Ciudadana.</p></div>
     </footer>
+  </main>
+</div>
 
-  </main> <!-- Cierre de main-content -->
-</div> <!-- Cierre de app-layout -->
-
-<!-- ══════════════════ MODAL: NUEVA ALERTA ══════════════════ -->
+<!-- MODALES Y TOAST -->
 <div class="modal-backdrop" id="modalAlert">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalAlertTitle">
-    <header class="modal-header">
-      <h3 id="modalAlertTitle"><i data-lucide="bell"></i> Registrar nueva alerta</h3>
-      <button class="modal-close" data-close-modal="modalAlert" aria-label="Cerrar">
-        <i data-lucide="x"></i>
-      </button>
-    </header>
+  <div class="modal" role="dialog" aria-modal="true">
+    <header class="modal-header"><h3><i data-lucide="bell"></i> Registrar alerta</h3><button class="modal-close" data-close-modal="modalAlert"><i data-lucide="x"></i></button></header>
     <div class="modal-body">
       <form id="formNewAlert">
-        <div class="form-group">
-          <label for="alertType">Tipo de incidente</label>
-          <select id="alertType" class="form-input" required>
-            <option value="Robo">Robo</option>
-            <option value="Sospechoso">Sospechoso</option>
-            <option value="Incendio">Incendio</option>
-            <option value="Accidente">Accidente</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="alertLocation">Ubicación</label>
-          <input type="text" id="alertLocation" class="form-input" placeholder="Ej. Av. Central 234" required>
-        </div>
-        <div class="form-group">
-          <label for="alertDesc">Descripción</label>
-          <textarea id="alertDesc" class="form-input" rows="3" placeholder="Describe brevemente lo sucedido..." required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="alertPriority">Prioridad</label>
-          <select id="alertPriority" class="form-input">
-            <option value="Baja">Baja</option>
-            <option value="Media" selected>Media</option>
-            <option value="Alta">Alta</option>
-          </select>
-        </div>
+        <div class="form-group"><label>Tipo</label><select id="alertType" class="form-input"><option value="Robo">Robo</option><option value="Sospechoso">Sospechoso</option><option value="Incendio">Incendio</option><option value="Accidente">Accidente</option></select></div>
+        <div class="form-group"><label>Ubicación</label><input type="text" id="alertLocation" class="form-input" required></div>
+        <div class="form-group"><label>Descripción</label><textarea id="alertDesc" class="form-input" rows="3" required></textarea></div>
+        <div class="form-group"><label>Prioridad</label><select id="alertPriority" class="form-input"><option value="Baja">Baja</option><option value="Media" selected>Media</option><option value="Alta">Alta</option></select></div>
       </form>
     </div>
-    <footer class="modal-footer">
-      <button class="btn btn-ghost" data-close-modal="modalAlert" type="button">Cancelar</button>
-      <button class="btn btn-orange" id="btnSubmitAlert" type="button">
-        <i data-lucide="send"></i> Registrar alerta
-      </button>
-    </footer>
+    <footer class="modal-footer"><button class="btn btn-ghost" data-close-modal="modalAlert">Cancelar</button><button class="btn btn-orange" id="btnSubmitAlert"><i data-lucide="send"></i> Registrar</button></footer>
   </div>
 </div>
 
-<!-- ══════════════════ MODAL: CÁMARA EN VIVO ══════════════════ -->
 <div class="modal-backdrop" id="modalCamera">
-  <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="modalCameraTitle">
-    <header class="modal-header">
-      <h3 id="modalCameraTitle"><i data-lucide="cctv"></i> Vista en vivo</h3>
-      <button class="modal-close" data-close-modal="modalCamera" aria-label="Cerrar">
-        <i data-lucide="x"></i>
-      </button>
-    </header>
-    <div class="modal-body">
-      <div class="camera-live-view" id="cameraLiveView">
-        <div class="camera-live-overlay">
-          <span class="camera-live-tag"><span class="dot"></span> EN VIVO</span>
-          <div class="camera-live-icon"><i data-lucide="cctv"></i></div>
-        </div>
-        <div class="camera-live-info" id="cameraLiveInfo">—</div>
-      </div>
-    </div>
-    <footer class="modal-footer">
-      <button class="btn btn-ghost" data-action="camera-ptz" type="button">
-        <i data-lucide="rotate-cw"></i> Control PTZ
-      </button>
-      <button class="btn btn-ghost" data-action="camera-snapshot" type="button">
-        <i data-lucide="camera"></i> Captura
-      </button>
-      <button class="btn btn-primary" data-close-modal="modalCamera" type="button">Cerrar</button>
-    </footer>
+  <div class="modal modal-lg" role="dialog" aria-modal="true">
+    <header class="modal-header"><h3><i data-lucide="cctv"></i> Vista en vivo</h3><button class="modal-close" data-close-modal="modalCamera"><i data-lucide="x"></i></button></header>
+    <div class="modal-body"><div class="camera-live-view" id="cameraLiveView"><div class="camera-live-overlay"><span class="camera-live-tag"><span class="dot"></span> EN VIVO</span><div class="camera-live-icon"><i data-lucide="cctv"></i></div></div><div class="camera-live-info" id="cameraLiveInfo">—</div></div></div>
+    <footer class="modal-footer"><button class="btn btn-ghost" data-action="camera-ptz">Control PTZ</button><button class="btn btn-ghost" data-action="camera-snapshot">Captura</button><button class="btn btn-primary" data-close-modal="modalCamera">Cerrar</button></footer>
   </div>
 </div>
 
-<!-- ══════════════════ TOAST ══════════════════ -->
-<div class="toast" id="toast" role="status" aria-live="polite">
-  <i data-lucide="info"></i>
-  <span id="toastMsg">Mensaje del sistema</span>
-</div>
+<div class="toast" id="toast" role="status"><i data-lucide="info"></i><span id="toastMsg">Mensaje</span></div>
 
-<!-- ══════════════════ SCRIPTS ══════════════════ -->
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script src="js/estado.js"></script>
 <script src="js/utilidades.js"></script>
 <script src="js/reloj.js"></script>
