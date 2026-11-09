@@ -87,11 +87,8 @@
       const isSel = q.id === STATE.selectedId;
       const isSafe = q.status === 'safe';
       
-      // Colores institucionales
-      const bgColor = isSafe ? '#22C55E' : '#EF4444';
       const iconName = isSafe ? 'shield-check' : 'alert-triangle';
 
-      // Crear un icono HTML personalizado para que se vea como la primera imagen
       const customIcon = L.divIcon({
         className: 'custom-map-marker',
         html: `
@@ -106,14 +103,12 @@
 
       const marker = L.marker([q.lat, q.lng], { icon: customIcon }).addTo(markersLayer);
 
-      // Al hacer clic en el marcador
       marker.on('click', () => {
         STATE.selectedId = q.id;
         renderMarkers();
         renderQuadrantInfo();
       });
 
-      // Tooltip flotante al pasar el mouse
       marker.on('mouseover', (e) => {
         showTooltip(e.originalEvent, q);
       });
@@ -122,7 +117,50 @@
       });
     });
 
-    // Actualizar iconos Lucide dentro de los marcadores generados
+    if (typeof refreshIcons === 'function') refreshIcons();
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // RENDERIZAR TABLA DE GESTIÓN
+  // ═══════════════════════════════════════════════════════════════════
+  function renderQuadrantTable() {
+    const tbody = document.getElementById('quadrantTableBody');
+    if (!tbody) return;
+
+    const visible = QUADRANTS.filter(q =>
+      STATE.filterZone === 'all' || q.zone === STATE.filterZone
+    );
+
+    tbody.innerHTML = visible.map(q => {
+      const isAlert = q.status === 'alert';
+      return `
+        <tr>
+          <td class="q-id">${q.id}</td>
+          <td class="q-address">${q.address}</td>
+          <td class="q-staff">${q.staff}</td>
+          <td>
+            <span class="status-badge ${q.status}">
+              <span class="dot"></span> ${isAlert ? 'ALERTA' : 'SEGURO'}
+            </span>
+          </td>
+          <td>
+            <button class="btn-table-action ${isAlert ? 'deactivate' : 'activate'}"
+                    data-table-toggle="${q.id}" type="button">
+              <i data-lucide="${isAlert ? 'check-circle' : 'alert-triangle'}"></i>
+              ${isAlert ? 'Calmar' : 'Alertar'}
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    // Bind de eventos de la tabla
+    tbody.querySelectorAll('[data-table-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggleQuadrantAlert(btn.dataset.tableToggle);
+      });
+    });
+
     if (typeof refreshIcons === 'function') refreshIcons();
   }
 
@@ -191,7 +229,7 @@
           id: (typeof uid === 'function') ? uid() : Date.now(),
           type: 'Sospechoso',
           location: `${q.name} · ${q.address}`,
-          desc: `Alerta activada manualmente desde el mapa. ${q.desc}`,
+          desc: `Alerta activada manualmente desde el panel. ${q.desc}`,
           time,
           status: 'review',
           quadrantId: q.id
@@ -207,8 +245,10 @@
       if (typeof resetUpdateTimer === 'function') resetUpdateTimer();
     }
 
+    // Actualizar todas las vistas
     renderMarkers();
     renderQuadrantInfo();
+    renderQuadrantTable();
     updateAlertCount();
 
     if (typeof showToast === 'function') {
@@ -250,7 +290,6 @@
     let left = event.clientX - (tr.width / 2);
     let top = event.clientY - tr.height - 20;
 
-    // Evitar que se salga de la pantalla
     left = Math.max(8, Math.min(left, window.innerWidth - tr.width - 8));
     if (top < 8) top = event.clientY + 20;
 
@@ -274,10 +313,8 @@
           STATE.filterZone === 'all' || q.zone === STATE.filterZone
         );
         
-        // Seleccionar automáticamente el primero de la zona
         STATE.selectedId = visible.length > 0 ? visible[0].id : null;
 
-        // Ajustar vista del mapa si hay filtro
         if (map && visible.length > 0) {
           const bounds = L.latLngBounds(visible.map(q => [q.lat, q.lng]));
           map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
@@ -287,6 +324,7 @@
 
         renderMarkers();
         renderQuadrantInfo();
+        renderQuadrantTable(); // Actualizar la tabla también
         hideTooltip();
       });
     });
@@ -296,25 +334,19 @@
   // ARRANQUE
   // ═══════════════════════════════════════════════════════════════════
   function initQuadrants() {
-    // 1. Iniciar Mapa
     initMap();
 
-    // 2. Seleccionar inicial
     if (QUADRANTS.length > 0 && !STATE.selectedId) {
       STATE.selectedId = QUADRANTS[0].id;
     }
     
-    // 3. Render inicial
     renderMarkers();
     renderQuadrantInfo();
+    renderQuadrantTable(); // Renderizar la tabla inicial
 
-    // 4. Filtros
     initFilters();
-
-    // 5. Sincronizar contador
     setInterval(updateAlertCount, 2000);
 
-    // 6. Solucionar problema de renderizado de Leaflet al cambiar de vista
     const dashView = document.getElementById('view-dashboard');
     if (dashView) {
       new MutationObserver(() => {
