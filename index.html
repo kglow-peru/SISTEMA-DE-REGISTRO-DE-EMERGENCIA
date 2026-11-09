@@ -185,7 +185,6 @@
 
 <!-- ══════════════════ HEADER ══════════════════ -->
 <header class="top-header" role="banner">
-  <!-- Botón hamburguesa (visible en todos los dispositivos): abre/cierra el menú lateral -->
   <button class="vs-hamburguesa" id="vsHamburguesa" type="button" aria-label="Abrir menú de navegación" aria-controls="menuLateral" aria-expanded="false">☰</button>
   <div class="brand-block">
     <div class="brand-shield" aria-hidden="true">
@@ -546,7 +545,7 @@
         <div class="monitor-grid" id="monitorGrid"></div>
       </section>
 
-            <!-- ══════════════════ MAPA INTERACTIVO DE CUADRANTES ══════════════════ -->
+      <!-- ══════════════════ MAPA INTERACTIVO DE CUADRANTES ══════════════════ -->
       <section class="quadrant-section" aria-labelledby="quadrantTitle">
 
         <div class="quadrant-topbar">
@@ -571,7 +570,7 @@
 
         <div class="quadrant-layout">
 
-          <!-- Mapa -->
+          <!-- Mapa y Tabla de Gestión -->
           <div class="quadrant-map-panel">
             <div class="quadrant-map-header">
               <h4><i data-lucide="crosshair"></i> Mapa Operativo en Tiempo Real</h4>
@@ -579,6 +578,35 @@
             </div>
             <div class="quadrant-map" id="quadrantMap" role="application"
                  aria-label="Mapa interactivo de cuadrantes del sector"></div>
+                 
+            <!-- NUEVA TABLA DE GESTIÓN -->
+            <div class="quadrant-table-wrapper">
+              <div class="quadrant-table-header">
+                <h4><i data-lucide="list"></i> Gestión Rápida de Cuadrantes</h4>
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span class="meta">Acciones en tiempo real</span>
+                  <button class="btn btn-orange" data-action="new-alert" type="button" style="padding: 6px 12px; font-size: 11.5px;">
+                    <i data-lucide="plus"></i> Nueva Alerta
+                  </button>
+                </div>
+              </div>
+              <div class="quadrant-table-scroll">
+                <table class="quadrant-table">
+                  <thead>
+                    <tr>
+                      <th>Cuadrante</th>
+                      <th>Dirección / Ref</th>
+                      <th>Personal</th>
+                      <th>Estado</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="quadrantTableBody">
+                    <!-- Renderizado por JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
           <!-- Sidebar -->
@@ -966,9 +994,7 @@
           <ul>
             <li><a href="#" onclick="goToView('home'); return false;">Inicio</a></li>
             <li><a href="#" onclick="goToView('sectors'); return false;">Sectores</a></li>
-            <!-- Botón de Alerta modificado -->
             <li><a href="#" onclick="goToView('alerts'); return false;">Alertas</a></li>
-            <!-- Botón de Reportes agregado -->
             <li><a href="#" onclick="goToView('reports'); return false;">Reportes</a></li>
           </ul>
         </div>
