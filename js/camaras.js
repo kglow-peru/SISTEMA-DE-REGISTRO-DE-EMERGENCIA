@@ -65,7 +65,7 @@ function cameraCardHTML(cam) {
         <div class="cam-meta">
           <span>${escapeHtml(cam.zone)}</span>
           <span class="divider"></span>
-          <span>${escapeHtml(cam.quality)}</span>
+          <span>${escapeHtml(cam.specs || cam.quality)}</span>
         </div>
         <div class="camera-actions">
           <button class="camera-btn primary" data-action="${primaryAction}" data-id="${cam.id}" type="button">
@@ -73,6 +73,9 @@ function cameraCardHTML(cam) {
           </button>
           ${secondAction}
         </div>
+        <button class="camera-request-btn" data-action="request-recording" data-id="${cam.id}" type="button">
+          <i class="fa-solid fa-circle-plus" aria-hidden="true"></i> Solicitar Grabación
+        </button>
       </div>
     </article>
   `;
