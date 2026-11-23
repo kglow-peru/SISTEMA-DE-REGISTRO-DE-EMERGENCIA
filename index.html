@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="css/estilos.css">
 <link rel="stylesheet" href="css/vecino-seguro.css">
 <link rel="stylesheet" href="css/cuadrantes.css">
+<link rel="stylesheet" href="css/solicitud.css">
 
 <!-- ESTILOS DEL FOOTER -->
 <style>
@@ -303,6 +304,7 @@
           <div class="meta"><i data-lucide="refresh-cw" style="width:13px;height:13px"></i> Actualizado hace <span id="lastUpdate">12</span> s</div>
         </div>
         <div class="monitor-grid" id="monitorGrid"></div>
+
       </section>
 
       <!-- MAPA INTERACTIVO -->
@@ -397,6 +399,61 @@
     <section class="view" id="view-cameras">
       <div class="page-header"><div><h2>Red de Videovigilancia</h2><p>Estado y control de las cámaras PTZ.</p></div></div>
       <div class="monitor-grid" id="camerasFullGrid"></div>
+
+      <!-- FORMULARIO DE SOLICITUD DE METRAJE -->
+      <section class="request-card" id="solicitudMetraje" aria-labelledby="requestTitle">
+        <header class="request-head">
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+          <h4 id="requestTitle">2. Formulario de Solicitud de Metraje de Seguridad</h4>
+        </header>
+        <form class="request-form" id="formSolicitud" novalidate>
+          <div class="request-grid">
+            <div class="req-field">
+              <label for="reqDni">DNI / Documento de Identidad <span class="req" aria-hidden="true">*</span></label>
+              <div class="req-control">
+                <span class="req-icon" aria-hidden="true"><i class="fa-regular fa-id-card"></i></span>
+                <input class="req-input has-icon" type="text" id="reqDni" name="dni" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="Ingrese 8 dígitos" required>
+              </div>
+              <div class="req-error" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span></span></div>
+            </div>
+
+            <div class="req-field">
+              <label for="reqCamara">Dispositivo / Cámara Requerida <span class="req" aria-hidden="true">*</span></label>
+              <select class="req-input" id="reqCamara" name="camara" required></select>
+              <div class="req-error" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span></span></div>
+            </div>
+
+            <div class="req-field">
+              <label for="reqFecha">Fecha y Hora Estimada del Incidente <span class="req" aria-hidden="true">*</span></label>
+              <input class="req-input" type="datetime-local" id="reqFecha" name="fecha" required>
+              <div class="req-error" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span></span></div>
+            </div>
+
+            <div class="req-field">
+              <label for="reqParte">Nº de Parte Policial o Denuncia <span class="req" aria-hidden="true">*</span></label>
+              <input class="req-input" type="text" id="reqParte" name="parte" maxlength="20" autocomplete="off" placeholder="Ej: PNP-2026-9874" required>
+              <div class="req-error" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span></span></div>
+            </div>
+
+            <div class="req-field full">
+              <label for="reqDescripcion">Fundamento Legal y Descripción del Suceso <span class="req" aria-hidden="true">*</span></label>
+              <textarea class="req-input" id="reqDescripcion" name="descripcion" rows="3" placeholder="Describa brevemente el hecho delictivo o accidente de tránsito presenciado…" required></textarea>
+              <div class="req-error" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span></span></div>
+              <div class="req-hint"><span id="reqContador">0 / 500</span></div>
+            </div>
+          </div>
+
+          <div class="request-actions">
+            <button class="req-btn secondary" type="button" id="btnLimpiarSolicitud"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Limpiar Campos</button>
+            <button class="req-btn primary" type="submit" id="btnEnviarSolicitud"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Enviar Solicitud a Revisión</button>
+          </div>
+        </form>
+        <div class="request-success" id="requestSuccess" role="status" aria-live="polite">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <div><strong>Solicitud registrada correctamente</strong><p id="requestSuccessText"></p></div>
+          <button class="req-close" type="button" id="btnCerrarSolicitudOk" aria-label="Cerrar mensaje"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </section>
     </section>
 
     <section class="view" id="view-sectors">
@@ -523,6 +580,26 @@
   </div>
 </div>
 
+<!-- MODAL: Protocolo de Entrega de Grabaciones -->
+<div class="modal fade" id="modalProtocolo" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="modalProtocoloLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProtocoloLabel">Protocolo de Entrega de Grabaciones</h5>
+        <button type="button" class="btn-close" data-protocolo-cerrar aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <p>En cumplimiento de la Ley N.° 29733, Ley de Protección de Datos Personales, los datos consignados en esta solicitud serán tratados únicamente para evaluar la entrega del metraje requerido.</p>
+        <p><strong>Los videos solo se entregarán previa validación de la Policía Nacional o el Ministerio Público.</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnProtocoloCancelar" data-protocolo-cerrar>Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnProtocoloAceptar">Aceptar y Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"><i data-lucide="info"></i><span id="toastMsg">Mensaje</span></div>
 
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -539,5 +616,6 @@
 <script src="js/app.js"></script>
 <script src="js/vecino-seguro.js"></script>
 <script src="js/cuadrantes.js"></script>
+<script src="js/solicitud.js"></script>
 </body>
 </html>
